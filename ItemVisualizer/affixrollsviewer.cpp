@@ -31,7 +31,7 @@ void AffixRollsViewer::initialize(CDataTableBase<AffixRoll>* affixRollsDataTable
             tagList.append(QString::fromStdString(toString(tag)));
         }
 
-        QString displayName = "[" + QString::fromStdString(strAffixType)+ "] " + QString::fromStdString(i.name) + " | " + tagList + "; " + QString::number(i.level);
+        QString displayName = "[" + QString::fromStdString(strAffixType)+ "] [T" +QString::number((int)i.tier)+ "] " + QString::fromStdString(i.getRollName()) + " | " + tagList + "; " + QString::number(i.level);
 
         ui->listWidget->addItem(displayName);
     }

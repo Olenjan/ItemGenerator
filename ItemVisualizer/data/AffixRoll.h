@@ -37,9 +37,12 @@ public:
 };
 
 inline const char ROLL_NUMBER_WILDCARD = '#';
-struct AffixRoll
+
+//todo: Tier ?
+struct  AffixRoll
 {
     TableID id;
+    EAffixTier tier;
 
     Name name;                          // Must have Equal number of # to modRolls array size
                                         // (# to Strength) when 1 ModifierRoll
@@ -67,6 +70,29 @@ struct AffixRoll
         int modRollsCount = modifierRolls.size();
         return nameWildcardCount == modRollsCount;
     }
+
+    //Returns wildcard filled name with (min - max) values from AffixModifierRoll
+    std::string getRollName() const
+    {
+        std::string result = name;
+
+        for(size_t i = 0; i < modifierRolls.size(); i++)
+        {
+            size_t foundWildcardPosition = foundWildcardPosition = result.find(ROLL_NUMBER_WILDCARD);
+            if (foundWildcardPosition == std::string::npos)
+            {
+                throw std::runtime_error("RolledModifier::getRolledName Does not have enough wildcards");
+                break;
+            }
+
+            auto minMax = modifierRolls[i].minMax;
+            std::string replacementStr = "(" + std::to_string(minMax.min) + " - " + std::to_string(minMax.max) + ")";
+            result.replace(foundWildcardPosition, 1, replacementStr);
+        }
+
+        return result;
+    }
+
 };
 
 //Constraints

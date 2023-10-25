@@ -48,17 +48,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Affix rolls
     {
+        //Tiers ?
         //Prefix
         {
             Modifier* modLife = database->modifiers.get("mod_max_life");
             Modifier* modMana = database->modifiers.get("mod_max_mana");
             Modifier* modStamina = database->modifiers.get("mod_max_stamina");
 
-            database->affixRolls.add(AffixRoll{10, "# to Maximum Life",    "prefix_to_max_life_1",       {{EAffixRollEffectType::NUMBERIC, 1, 10,  modLife}}, (Level)1, EAffixType::PREFIX, "Vital", {EAffixTag::LIFE, EAffixTag::RESOURCE}});
-            database->affixRolls.add(AffixRoll{11, "# to Maximum Mana",    "prefix_to_max_mana_1",       {{EAffixRollEffectType::NUMBERIC, 1, 10,  modMana}}, (Level)1, EAffixType::PREFIX, "Mystic's", {EAffixTag::MANA, EAffixTag::RESOURCE}});
-            database->affixRolls.add(AffixRoll{12, "# to Maximum Stamina", "prefix_to_max_stamina_1",    {{EAffixRollEffectType::NUMBERIC, 1, 10,  modStamina}}, (Level)1, EAffixType::PREFIX, "Breezy", {EAffixTag::MANA, EAffixTag::RESOURCE}});
+            database->affixRolls.add(AffixRoll{10, EAffixTier::TIER_10, "# to Maximum Life",    "prefix_to_max_life_1",       {{EAffixRollEffectType::NUMBERIC, 1, 10,  modLife}}, (Level)1, EAffixType::PREFIX, "Vital", {EAffixTag::LIFE, EAffixTag::RESOURCE}});
+            database->affixRolls.add(AffixRoll{11, EAffixTier::TIER_10, "# to Maximum Mana",    "prefix_to_max_mana_1",       {{EAffixRollEffectType::NUMBERIC, 1, 10,  modMana}}, (Level)1, EAffixType::PREFIX, "Mystic's", {EAffixTag::MANA, EAffixTag::RESOURCE}});
+            database->affixRolls.add(AffixRoll{12, EAffixTier::TIER_10, "# to Maximum Stamina", "prefix_to_max_stamina_1",    {{EAffixRollEffectType::NUMBERIC, 1, 10,  modStamina}}, (Level)1, EAffixType::PREFIX, "Breezy", {EAffixTag::MANA, EAffixTag::RESOURCE}});
 
-            database->affixRolls.add(AffixRoll{13, "# to Maximum Life;# to Maximum Stamina", "prefix_x_to_max_life_x_to_stamina", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modLife},
+            database->affixRolls.add(AffixRoll{13, EAffixTier::TIER_10, "# to Maximum Life;# to Maximum Stamina", "prefix_x_to_max_life_x_to_stamina", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modLife},
                                                                                                                                   {EAffixRollEffectType::NUMBERIC, 1, 10,  modStamina}}, (Level)1, EAffixType::PREFIX, "Sprout's", {EAffixTag::LIFE, EAffixTag::RESOURCE, EAffixTag::STAMINA}});
 
 
@@ -68,28 +69,28 @@ MainWindow::MainWindow(QWidget *parent)
 
             //There is a roll overlap, we need to solve this via constraints
             //Add constraint method to this roll that makes sure that modRoll[0] value > modRoll[1] min random value
-            database->affixRolls.add(AffixRoll{14, "Adds # to # Physical Damage", "prefix_flat_physical_damage_1", {{EAffixRollEffectType::NUMBERIC, 1, 7,  modMinPhysicalDamage},
+            database->affixRolls.add(AffixRoll{14, EAffixTier::TIER_10, "Adds # to # Physical Damage", "prefix_flat_physical_damage_1", {{EAffixRollEffectType::NUMBERIC, 1, 7,  modMinPhysicalDamage},
                                                                                                                    {EAffixRollEffectType::NUMBERIC, 4, 10,  modMaxPhysicalDamage}}, (Level)1, EAffixType::PREFIX, "Brutal", {EAffixTag::PHYSICAL}, new ConstrainRange_roll_0_rng_1_min()});
 
-            database->affixRolls.add(AffixRoll{15, "#% to Physical Damage", "prefix_pct_physical_damage_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modIncreasePhysicalDamage}}, (Level)1, EAffixType::PREFIX, "Brutal", {EAffixTag::PHYSICAL}});
+            database->affixRolls.add(AffixRoll{15, EAffixTier::TIER_10, "#% to Physical Damage", "prefix_pct_physical_damage_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modIncreasePhysicalDamage}}, (Level)1, EAffixType::PREFIX, "Brutal", {EAffixTag::PHYSICAL}});
         }
 
         //Suffix
         {
             Modifier* modStrength = database->modifiers.get("mod_strength");
-            database->affixRolls.add(AffixRoll{1, "# to Strength", "suffix_x_to_strength_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modStrength}}, (Level)1, EAffixType::SUFFIX, "of Might", {EAffixTag::ATTRIBUTE}});
-            database->affixRolls.add(AffixRoll{2, "# to Strength", "suffix_x_to_strength_2", {{EAffixRollEffectType::NUMBERIC, 8, 18,  modStrength}}, (Level)8, EAffixType::SUFFIX, "of Power", {EAffixTag::ATTRIBUTE}});
-            database->affixRolls.add(AffixRoll{3, "# to Strength", "suffix_x_to_strength_3", {{EAffixRollEffectType::NUMBERIC, 16, 23, modStrength}}, (Level)16, EAffixType::SUFFIX, "of the Titan", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{1, EAffixTier::TIER_10, "# to Strength", "suffix_x_to_strength_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modStrength}}, (Level)1, EAffixType::SUFFIX, "of Might", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{2, EAffixTier::TIER_10, "# to Strength", "suffix_x_to_strength_2", {{EAffixRollEffectType::NUMBERIC, 8, 18,  modStrength}}, (Level)8, EAffixType::SUFFIX, "of Power", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{3, EAffixTier::TIER_10, "# to Strength", "suffix_x_to_strength_3", {{EAffixRollEffectType::NUMBERIC, 16, 23, modStrength}}, (Level)16, EAffixType::SUFFIX, "of the Titan", {EAffixTag::ATTRIBUTE}});
 
             Modifier* modDexterity = database->modifiers.get("mod_dexterity");
-            database->affixRolls.add(AffixRoll{4, "# to Dexterity", "suffix_x_to_dexterity_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modDexterity}}, (Level)1, EAffixType::SUFFIX, "of Grace", {EAffixTag::ATTRIBUTE}});
-            database->affixRolls.add(AffixRoll{5, "# to Dexterity", "suffix_x_to_dexterity_2", {{EAffixRollEffectType::NUMBERIC, 8, 18,  modDexterity}}, (Level)8, EAffixType::SUFFIX, "of Agility", {EAffixTag::ATTRIBUTE}});
-            database->affixRolls.add(AffixRoll{6, "# to Dexterity", "suffix_x_to_dexterity_3", {{EAffixRollEffectType::NUMBERIC, 16, 23, modDexterity}}, (Level)16, EAffixType::SUFFIX, "of Precision", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{4, EAffixTier::TIER_10, "# to Dexterity", "suffix_x_to_dexterity_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modDexterity}}, (Level)1, EAffixType::SUFFIX, "of Grace", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{5, EAffixTier::TIER_10, "# to Dexterity", "suffix_x_to_dexterity_2", {{EAffixRollEffectType::NUMBERIC, 8, 18,  modDexterity}}, (Level)8, EAffixType::SUFFIX, "of Agility", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{6, EAffixTier::TIER_10, "# to Dexterity", "suffix_x_to_dexterity_3", {{EAffixRollEffectType::NUMBERIC, 16, 23, modDexterity}}, (Level)16, EAffixType::SUFFIX, "of Precision", {EAffixTag::ATTRIBUTE}});
 
             Modifier* modIntelligence = database->modifiers.get("mod_intelligence");
-            database->affixRolls.add(AffixRoll{7, "# to Intelligence", "suffix_x_to_intelligence_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modIntelligence}}, (Level)1, EAffixType::SUFFIX, "of Insight", {EAffixTag::ATTRIBUTE}});
-            database->affixRolls.add(AffixRoll{8, "# to Intelligence", "suffix_x_to_intelligence_2", {{EAffixRollEffectType::NUMBERIC, 8, 18,  modIntelligence}}, (Level)8, EAffixType::SUFFIX, "of Wisdom", {EAffixTag::ATTRIBUTE}});
-            database->affixRolls.add(AffixRoll{9, "# to Intelligence", "suffix_x_to_intelligence_3", {{EAffixRollEffectType::NUMBERIC, 16, 23, modIntelligence}}, (Level)16, EAffixType::SUFFIX, "of Intellect", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{7, EAffixTier::TIER_10, "# to Intelligence", "suffix_x_to_intelligence_1", {{EAffixRollEffectType::NUMBERIC, 1, 10,  modIntelligence}}, (Level)1, EAffixType::SUFFIX, "of Insight", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{8, EAffixTier::TIER_10, "# to Intelligence", "suffix_x_to_intelligence_2", {{EAffixRollEffectType::NUMBERIC, 8, 18,  modIntelligence}}, (Level)8, EAffixType::SUFFIX, "of Wisdom", {EAffixTag::ATTRIBUTE}});
+            database->affixRolls.add(AffixRoll{9, EAffixTier::TIER_10, "# to Intelligence", "suffix_x_to_intelligence_3", {{EAffixRollEffectType::NUMBERIC, 16, 23, modIntelligence}}, (Level)16, EAffixType::SUFFIX, "of Intellect", {EAffixTag::ATTRIBUTE}});
         }
     }
 
@@ -272,11 +273,16 @@ void MainWindow::on_pbFloatPhysical_clicked()
     CollapsedItemState newItem;
 
 
+
     //Test1
     {
         //CItemGenerator itemGen;
         CAffixGenerator affixGen(database);
-        affixGen.generate();
+
+
+
+        auto affixRoll = affixGen.generateAffixRoll(EAffixType::IMPLICIT);
+        auto collapsedAffix = affixGen.collapseAffixRoll(affixRoll/*, rangeConstraint*/);
     }
     int i = 0;
 
