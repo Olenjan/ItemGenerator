@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <algorithm>
 #include <optional>
 #include <stdint.h>

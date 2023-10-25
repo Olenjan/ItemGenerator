@@ -2,7 +2,7 @@
 #define ITEMVIEW_H
 
 #include <QWidget>
-#include "data/CollapsedItemState.h"
+#include "data/collapsed/CollapsedItemState.h"
 
 namespace Ui {
 class ItemView;

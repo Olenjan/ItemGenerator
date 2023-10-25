@@ -10,6 +10,4 @@ struct Modifier
     NameTag nameTag;
     Description description;
     ModifierType type;
-
 };
-

@@ -9,32 +9,23 @@
 #include "AffixTag.h"
 #include "AffixType.h"
 
+#include "collapsed/CollapsedAffix.h"
+
 #include "Modifier.h"
 
-struct MinMaxRoll
+struct AffixMinMaxRoll
 {
     RollValue min;
     RollValue max;
 };
 
-struct ModifierRoll
+struct AffixModifierRoll
 {
     EAffixRollEffectType effectType;    // (numeric mod)
 
-    MinMaxRoll minMax;
+    AffixMinMaxRoll minMax;
 
     Modifier* modifier;
-};
-
-struct AffixRoll;
-struct RolledModifier
-{
-    const AffixRoll* roll;
-    std::vector<RollValue> values;
-
-    const std::string getRolledName(int numMod) const;
-
-    const std::vector<std::string> getRolledNames() const;
 };
 
 class ConstrainRangeBase
@@ -42,7 +33,7 @@ class ConstrainRangeBase
 public:
     ConstrainRangeBase() = default;
 
-    virtual MinMaxRoll call(const RolledModifier& rollsSoFar, const ModifierRoll& currentModRolls, int modRollID) = 0;
+    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const AffixModifierRoll& currentModRolls, int modRollID) = 0;
 };
 
 inline const char ROLL_NUMBER_WILDCARD = '#';
@@ -50,7 +41,8 @@ struct AffixRoll
 {
     TableID id;
 
-    Name name;                          // (# to Strength) when 1 ModifierRoll
+    Name name;                          // Must have Equal number of # to modRolls array size
+                                        // (# to Strength) when 1 ModifierRoll
                                         // (Adds # to # Physical Damage) when 2 ModifierRoll
                                         // (# to Maximum Life;# to Maximum Stamina) when 2 ModifierRoll
 
@@ -59,8 +51,7 @@ struct AffixRoll
                                         // (prefix_x_increase_physical_damage) '_' separated nametag
                                         //# to Maximum Life;# to Maximum Stamina
 
-
-    std::vector<ModifierRoll> modRolls;
+    std::vector<AffixModifierRoll> modifierRolls; // One affix can have multiple rolls affecting different
 
     Level level;
 
@@ -69,6 +60,13 @@ struct AffixRoll
     std::vector<EAffixTag> tags;
 
     ConstrainRangeBase* rangeConstraint = nullptr;
+
+    bool validate() const
+    {
+        int nameWildcardCount = std::count_if( name.begin(), name.end(), []( char c ){return c =='#';});
+        int modRollsCount = modifierRolls.size();
+        return nameWildcardCount == modRollsCount;
+    }
 };
 
 //Constraints
@@ -83,7 +81,7 @@ public:
     //  rollsSoFar - Rolled RNG cache
     //  currentModRolls - Current mod being rolled
     //  modRollID - number n of mod being rolled; modRollID - 1 = previous mod when modRollID > 0
-    virtual MinMaxRoll call(const RolledModifier& rollsSoFar, const ModifierRoll& currentModRolls, int modRollID)
+    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const AffixModifierRoll& currentModRolls, int modRollID)
     {
         auto newMin = currentModRolls.minMax.min;
         if(modRollID == 1 && rollsSoFar.values[0] > newMin)
@@ -91,7 +89,7 @@ public:
             newMin = rollsSoFar.values[0];
         }
 
-        return MinMaxRoll{newMin, currentModRolls.minMax.max};
+        return AffixMinMaxRoll{newMin, currentModRolls.minMax.max};
     };
 };
 

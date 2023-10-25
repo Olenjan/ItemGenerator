@@ -11,7 +11,9 @@ CONFIG += c++17
 SOURCES += \
     affixrollsviewer.cpp \
     baseitemviewer.cpp \
+    characterviewer.cpp \
     data/AffixRoll.cpp \
+    data/collapsed/CollapsedAffix.cpp \
     itemview.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -20,18 +22,22 @@ SOURCES += \
 HEADERS += \
     affixrollsviewer.h \
     baseitemviewer.h \
+    characterviewer.h \
     data/AffixRoll.h \
     data/AffixRollEffetType.h \
     data/AffixTag.h \
     data/AffixType.h \
     data/BaseData.h \
-    data/CollapsedItemState.h \
-    data/Database.h \
+    data/Character.h \
+    data/collapsed/CollapsedAffix.h \
+    data/collapsed/CollapsedItemState.h \
+    data/database.h \
     data/ItemBase.h \
     data/ItemBaseSlotType.h \
     data/Modifier.h \
     data/ModifierType.h \
     data/Rarity.h \
+    data/generator/ItemGenerator.h \
     itemview.h \
     mainwindow.h \
     modifierviewer.h \
@@ -41,6 +47,7 @@ HEADERS += \
 FORMS += \
     affixrollsviewer.ui \
     baseitemviewer.ui \
+    characterviewer.ui \
     itemview.ui \
     mainwindow.ui \
     modifierviewer.ui

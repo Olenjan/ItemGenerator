@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="ItemDatabase.sqlite3">../ItemDatabase.sqlite3</file>
+        <file alias="Itemdatabase.sqlite3">../Itemdatabase.sqlite3</file>
     </qresource>
 </RCC>

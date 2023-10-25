@@ -30,7 +30,7 @@ void ItemView::setItem(const CollapsedItemState& item)
         for(auto i: m_Item.implicit)
         {
             itemText.append("Implicit:");
-            QString rolledName = QString::fromStdString(i.getRolledName(0));
+            QString rolledName = QString::fromStdString(i.getRolledName());
             itemText.append(rolledName);
             itemText.append("\n");
         }
@@ -39,7 +39,7 @@ void ItemView::setItem(const CollapsedItemState& item)
         for(auto i: m_Item.prefix)
         {
             itemText.append("Prefix:");
-            QString rolledName = QString::fromStdString(i.getRolledName(0));
+            QString rolledName = QString::fromStdString(i.getRolledName());
             itemText.append(rolledName);
 
             itemText.append("\n");
@@ -49,7 +49,7 @@ void ItemView::setItem(const CollapsedItemState& item)
         for(auto i: m_Item.suffix)
         {
             itemText.append("Suffix:");
-            QString rolledName = QString::fromStdString(i.getRolledName(0));
+            QString rolledName = QString::fromStdString(i.getRolledName());
             itemText.append(rolledName);
             itemText.append("\n");
         }

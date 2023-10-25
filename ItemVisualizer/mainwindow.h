@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QRandomGenerator>
-#include "data/Database.h"
+#include "data/database.h"
+#include "data/Character.h"
+#include "data/generator/ItemGenerator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -13,7 +15,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    Database database;
+
+    CharacterStats myCharacter;
+    std::shared_ptr<Database> database;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -25,6 +29,8 @@ private slots:
     void on_pbFloatPhysical_clicked();
 
     void on_pbPctPhysical_clicked();
+
+    void on_pbZeroStats_clicked();
 
 private:
     Ui::MainWindow *ui;
