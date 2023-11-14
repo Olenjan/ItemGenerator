@@ -6,7 +6,7 @@
 
 enum class EAffixTier
 {
-    UNKNOWN = 0,
+    NONE = 0,
     TIER_1 = 1,
     TIER_2 = 2,
     TIER_3 = 3,
@@ -23,6 +23,7 @@ static inline std::string toString(EAffixTier tier)
 {
     switch (tier)
     {
+    case EAffixTier::NONE:   return "NONE";
     case EAffixTier::TIER_1:   return "TIER_1";
     case EAffixTier::TIER_2:   return "TIER_2";
     case EAffixTier::TIER_3:   return "TIER_3";
@@ -40,6 +41,7 @@ static inline std::string toString(EAffixTier tier)
 template <>
 inline EAffixTier fromString<EAffixTier>(const std::string& str)
 {
+    if (str == "NONE")    return EAffixTier::NONE;
     if (str == "TIER_1")    return EAffixTier::TIER_1;
     if (str == "TIER_2")    return EAffixTier::TIER_2;
     if (str == "TIER_3")    return EAffixTier::TIER_3;
@@ -51,7 +53,7 @@ inline EAffixTier fromString<EAffixTier>(const std::string& str)
     if (str == "TIER_9")    return EAffixTier::TIER_9;
     if (str == "TIER_10")   return EAffixTier::TIER_10;
 
-    return EAffixTier::UNKNOWN;
+    return EAffixTier::NONE;
 }
 
 
@@ -59,7 +61,7 @@ inline EAffixTier fromString<EAffixTier>(const std::string& str)
 
 enum class EAffixType
 {
-    UNKNOWN  = 0,
+    NONE     = 0,
     IMPLICIT = 1,
     PREFIX   = 2,
     SUFFIX   = 3,
@@ -70,6 +72,7 @@ static inline std::string toString(EAffixType type)
 {
     switch(type)
     {
+    case EAffixType::NONE:      return "none";
     case EAffixType::IMPLICIT:    return "implicit";
     case EAffixType::PREFIX:      return "prefix";
     case EAffixType::SUFFIX:      return "suffix";
@@ -86,7 +89,7 @@ inline EAffixType fromString<EAffixType>(const std::string& str)
     if(str == "suffix")      return EAffixType::SUFFIX;
     if(str == "unique")      return EAffixType::UNIQUE;
 
-    return EAffixType::UNKNOWN;
+    return EAffixType::NONE;
 }
 
 #endif

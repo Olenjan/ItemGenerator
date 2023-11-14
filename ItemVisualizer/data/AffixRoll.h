@@ -72,13 +72,13 @@ struct  AffixRoll
     }
 
     //Returns wildcard filled name with (min - max) values from AffixModifierRoll
-    std::string getRollName() const
+    std::string getRangeRollName() const
     {
         std::string result = name;
 
         for(size_t i = 0; i < modifierRolls.size(); i++)
         {
-            size_t foundWildcardPosition = foundWildcardPosition = result.find(ROLL_NUMBER_WILDCARD);
+            size_t foundWildcardPosition = result.find(ROLL_NUMBER_WILDCARD);
             if (foundWildcardPosition == std::string::npos)
             {
                 throw std::runtime_error("RolledModifier::getRolledName Does not have enough wildcards");

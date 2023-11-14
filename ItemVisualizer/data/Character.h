@@ -29,4 +29,64 @@ struct CharacterStats
     RollValue armor = 0;
 };
 
+
+class CharacterAnimationState
+{
+private:
+public:
+    enum class eCharacterUpperState
+    {
+        NONE = 0,
+        IDLE,
+        CASTING,
+        ATTACKING,
+        BLOCKING,
+        CROUCHING,
+        DYING
+    };
+
+    enum class eCharacterLowerState
+    {
+        NONE = 0,
+        IDLE,
+        WALKING,
+        RUNNING,
+        TURNING_LEFT,
+        TURNING_RIGHT,
+        JUMPING,
+        FALLING,
+        CROUCHING,
+        DYING
+    };
+
+private:
+    // Member variables
+    eCharacterUpperState upperState = eCharacterUpperState::NONE;
+    eCharacterLowerState lowerState = eCharacterLowerState::NONE;
+public:
+    CharacterAnimationState() = default;
+
+
+    // Accessor methods
+    eCharacterUpperState GetUpperState() const{}
+    eCharacterLowerState GetLowerState() const{}
+
+    // Mutator methods
+    void SetUpperState(eCharacterUpperState state){}
+    void SetLowerState(eCharacterLowerState state){}
+
+};
+
+
+class Character
+{
+private:
+    CharacterStats           m_Stats;
+    CharacterAnimationState  m_AnimationState;
+public:
+    Character(){}
+
+    //virtual void setVelocity(const glm::vec3& velocity) = 0;
+};
+
 #endif // CHARACTER_H

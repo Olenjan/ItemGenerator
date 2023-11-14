@@ -9,6 +9,8 @@
 #include "../collapsed/CollapsedAffix.h"
 #include "../collapsed/CollapsedItemState.h"
 
+#include "AffixGenerator.h"
+
 
 
 //Generate any specific or as restricted ITEM as i want
@@ -45,67 +47,38 @@
 //  Test 6.12: Reroll any 2 Affixes to Affix with <tag>
 
 /*
-        // Chaos Orb:
-        // Rerolls modifiers on a rare item. It can change affixes, values, and the item's rarity.
+ /Modify Existing item
+    // Chaos Orb:
+    // Rerolls modifiers on a rare item. It can change affixes, values, and the item's rarity.
 
-        // Exalted Orb:
-        // Enhances a rare item with a new random affix, while keeping its rarity.
+    // Exalted Orb:
+    // Enhances a rare item with a new random affix, while keeping its rarity.
 
-        // Divine Orb:
-        // Rerolls the numeric values of the modifiers on an item without altering its rarity.
+    // Divine Orb:
+    // Rerolls the numeric values of the modifiers on an item without altering its rarity.
 
-        // Regal Orb:
-        // Upgrades a magic item to a rare item and rerolls the values of one random affix.
+    // Regal Orb:
+    // Upgrades a magic item to a rare item and rerolls the values of one random affix.
 
-        // Vaal Orb:
-        // Corrupts an item, which can have various effects, including making it more powerful or destroying it.
+    // Vaal Orb:
+    // Corrupts an item, which can have various effects, including making it more powerful or destroying it.
 
-        // Mirror of Kalandra:
-        // Creates a duplicate of a non-unique item, making it extremely valuable.
+    // Mirror of Kalandra:
+    // Creates a duplicate of a non-unique item, making it extremely valuable.
 
-        // Orb of Alchemy:
-        // Upgrades a normal item to a rare item with random modifiers.
+    // Orb of Alchemy:
+    // Upgrades a normal item to a rare item with random modifiers.
 
-        // Blessed Orb:
-        // Rerolls the values of explicit modifiers on a piece of equipment.
+    // Blessed Orb:
+    // Rerolls the values of explicit modifiers on a piece of equipment.
 
-        // Orb of Chance:
-        // Upgrades a normal item to a random rarity with random modifiers.
+    // Orb of Chance:
+    // Upgrades a normal item to a random rarity with random modifiers.
 
-        // Fusing Orb:
-        // Randomly modifies the links between sockets on an item.
+    // Fusing Orb:
+    // Randomly modifies the links between sockets on an item.
 
-     */
-
-
-
-//Generate random affix
-class CAffixGenerator
-{
-public:
-protected:
-    std::shared_ptr<Database> m_Database;
-
-public:
-    CAffixGenerator(std::shared_ptr<Database> database): m_Database(std::move(database))
-    {
-    }
-
-    virtual const AffixRoll* generateAffixRoll(EAffixType affixType) const
-    {
-        return nullptr;
-    }
-
-
-    //Rolls values for given AffixRoll
-    virtual CollapsedAffix collapseAffixRoll(const AffixRoll* affixRoll) const
-    {
-        return CollapsedAffix{};
-    }
-
-private:
-};
-
+ */
 
 //Generate new item with restrictions
 class CItemGenerator
@@ -113,13 +86,9 @@ class CItemGenerator
 
 private:
     std::shared_ptr<Database> m_Database;
-
-    CAffixGenerator m_AffixGen;
-
 public:
     CItemGenerator(std::shared_ptr<Database> database)
-        :   m_Database(std::move(database)),
-            m_AffixGen(m_Database)
+        :   m_Database(std::move(database))
     {
     }
 
@@ -129,73 +98,49 @@ public:
         if(rarity == ERarity::UNIQUE)
             return rollUnique();
 
+
         CollapsedItemState item;
         item.rarity = rarity;
+        item.base = rollBase();
 
         int affixCount = rollAffixCount();
+
+        CAffixGenerator affixGen(m_Database);
         for(int i = 0; i < affixCount; i++)
         {
-            EAffixType affixType = rollAffixType();
+            auto rollType = rollAffixType();
 
-            //Roll
-            auto affixRoll = m_AffixGen.generateAffixRoll(affixType);
-            auto collapsedAffix = m_AffixGen.collapseAffixRoll(affixRoll);
+            //Filter affixes
+            affixGen.clear();
+            //affixGen.addFilter(std::make_unique<AffixTypeFilter>({rollType}));
+
+            //Roll affix
+            auto collapsedAffix = affixGen.collapse();
+
+            if(rollType == EAffixType::IMPLICIT)
+            {
+                item.implicit.push_back(collapsedAffix);
+            }
+            else if(rollType == EAffixType::PREFIX)
+            {
+                item.prefix.push_back(collapsedAffix);
+            }
+            else if(rollType == EAffixType::SUFFIX)
+            {
+                item.suffix.push_back(collapsedAffix);
+            }
         }
 
         return item;
     }
 
 private:
+    virtual const ItemBase*     rollBase() const = 0;
     virtual ERarity             rollRarity() const = 0;
     virtual int                 rollAffixCount() const = 0;
     virtual EAffixType          rollAffixType() const = 0;
-    virtual AffixRoll*          rollAffix(EAffixType affixType) const = 0;
-
 
     virtual CollapsedItemState  rollUnique() const = 0;
-};
-
-
-//Changes to an existing item
-class CItemReforger
-{
-
-};
-
-
-class CDefaultItemGenerator: public CItemGenerator
-{
-public:
-    CDefaultItemGenerator(std::shared_ptr<Database> database)
-        :   CItemGenerator(std::move(database))
-    {
-    }
-
-private:
-    virtual ERarity     rollRarity() const
-    {
-        return ERarity::RARE;
-    }
-
-    virtual int         rollAffixCount() const
-    {
-        return AFFIX_NUM_TOTAL_MAX;
-    }
-
-    virtual EAffixType  rollAffixType() const
-    {
-        return EAffixType::SUFFIX;
-    }
-
-    virtual AffixRoll*  rollAffix(EAffixType affixType) const
-    {
-        return nullptr;
-    }
-
-    virtual CollapsedItemState  rollUnique() const
-    {
-        return CollapsedItemState{};
-    }
 };
 
 /*

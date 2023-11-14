@@ -37,7 +37,18 @@ HEADERS += \
     data/Modifier.h \
     data/ModifierType.h \
     data/Rarity.h \
+    data/generator/AffixFilter.h \
+    data/generator/AffixFilterInterface.h \
+    data/generator/AffixGenerator.h \
+    data/generator/AffixLevelFilter.h \
+    data/generator/AffixModCountFilter.h \
+    data/generator/AffixNameFilter.h \
+    data/generator/AffixNameTagFilter.h \
+    data/generator/AffixTagsFilter.h \
+    data/generator/AffixTierFilter.h \
+    data/generator/AffixTypeFilter.h \
     data/generator/ItemGenerator.h \
+    data/generator/RandomNumberGenerator.h \
     itemview.h \
     mainwindow.h \
     modifierviewer.h \

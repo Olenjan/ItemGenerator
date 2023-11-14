@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "data/generator/itemGenerator.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -92,6 +94,39 @@ MainWindow::MainWindow(QWidget *parent)
             database->affixRolls.add(AffixRoll{8, EAffixTier::TIER_10, "# to Intelligence", "suffix_x_to_intelligence_2", {{EAffixRollEffectType::NUMBERIC, 8, 18,  modIntelligence}}, (Level)8, EAffixType::SUFFIX, "of Wisdom", {EAffixTag::ATTRIBUTE}});
             database->affixRolls.add(AffixRoll{9, EAffixTier::TIER_10, "# to Intelligence", "suffix_x_to_intelligence_3", {{EAffixRollEffectType::NUMBERIC, 16, 23, modIntelligence}}, (Level)16, EAffixType::SUFFIX, "of Intellect", {EAffixTag::ATTRIBUTE}});
         }
+    }
+
+    //Unique items
+    {
+        auto item = CollapsedItemState();
+        item.base = database->itemBases.get("Cloth Tunic");
+
+        CAffixGenerator gen(database);
+        gen.collapse();
+        //CAffixGenerator Helps with generating affixes
+        //Features:
+        //  Collapses one affix randomly from remaining filtered affixes
+        //  Performs controlled roll given item.
+        //Basic filters
+        //numeric filter -> -1 represents infinite
+        //CAffixGenerator(database).filter() -> CAffixGenerator*
+        //CAffixGenerator(database).filter_type( { EAffixType::IMPLICIT, EAffixType::SUFFIX } ).collapse() -> CollapsedAffix
+        //CAffixGenerator(database).filter_tag_all( { EAffixTag::ATTRIBUTE, EAffixTag::LIFE } ).collapse() -> CollapsedAffix // Must contain all
+        //CAffixGenerator(database).filter_tag_any( { EAffixTag::ATTRIBUTE, EAffixTag::LIFE } ).collapse() -> CollapsedAffix // Must contain any of
+        //CAffixGenerator(database).filter_tier(EAffixTier::TIER_10, EAffixTier::TIER_1).collapse() -> CollapsedAffix   //From lower to higher tier
+        //CAffixGenerator(database).filter_nametag("suffix_x_to_strength_3").collapse() -> CollapsedAffix               //by nametag
+        //CAffixGenerator(database).filter_name("# to Dexterity").collapse() -> CollapsedAffix                          //by name
+        //CAffixGenerator(database).filter_level(0, 99).collapse() -> CollapsedAffix                                    //by minimum and maximum level
+        //CAffixGenerator(database).filter_ModRollCount(-1, -1).collapse() -> CollapsedAffix                            // Usually have just 1 ModRoll per 1 affix, there are exceptions
+
+        //chaining filters
+        //CAffixGenerator(database).filter_nametag_regex("suffix_x_to_strength_*").collapse() -> CollapsedAffix
+        //CAffixGenerator(database).filter_nametag_regex("suffix_x_to_strength_*").filter_tier(EAffixTier::TIER_10, EAffixTier::TIER_1).collapse() -> CollapsedAffix
+
+        //Control roll
+        //
+
+        database->uniqueItems.add(item);
     }
 
     ui->baseItemViewer->initialize(&database->itemBases);
@@ -278,11 +313,9 @@ void MainWindow::on_pbFloatPhysical_clicked()
     {
         //CItemGenerator itemGen;
         CAffixGenerator affixGen(database);
+        auto affix = affixGen.collapse();
 
-
-
-        auto affixRoll = affixGen.generateAffixRoll(EAffixType::IMPLICIT);
-        auto collapsedAffix = affixGen.collapseAffixRoll(affixRoll/*, rangeConstraint*/);
+        int i = 0;
     }
     int i = 0;
 
@@ -306,7 +339,8 @@ void MainWindow::on_pbFloatPhysical_clicked()
 
 
 void MainWindow::on_pbPctPhysical_clicked()
-{    ui->characterViewer->initialize(myCharacter);
+{
+    ui->characterViewer->initialize(myCharacter);
 }
 
 
