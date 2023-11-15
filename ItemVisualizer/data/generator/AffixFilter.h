@@ -38,33 +38,36 @@ public:
         return m_Filters.size();
     }
 
-    void clear()
+    void clearFilter()
     {
         m_Filters.clear();
     }
 
-    //
-    std::vector<AffixRoll> getFilteredAffixRolls() const
+    //todo: remove AffixRoll* raw
+    std::vector<const AffixRoll*> getFilteredAffixRolls() const
     {
-        std::vector<AffixRoll> result;
+        std::vector<const AffixRoll*> result;
 
         for(const auto& ar: m_Database->affixRolls.getAll())
         {
             bool arAccepted = true;
             for(const auto& f: m_Filters)
             {
-                if(!f->acceptAffixRoll(ar))
+                if(f->acceptAffixRoll(ar))
+                {
+                    int i = 0;
+                }
+                else
+                {
                     arAccepted = false;
+                }
             }
             if(arAccepted)
-                result.push_back(ar);
+                result.push_back(&ar);
         }
 
         return result;
     };
-
-    //
-    virtual CollapsedAffix collapse() const = 0;
 };
 
 #endif // AFFIXFILTER_H

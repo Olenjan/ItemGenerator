@@ -2,16 +2,16 @@
 #define RANDOMNUMBERGENERATOR_H
 
 #include <random>
+#include <chrono>
 
 class RandomNumberGenerator {
 public:
-    RandomNumberGenerator(int min, int max) : distribution(min, max) {
-        random_number = distribution(generator);
-    }
+    RandomNumberGenerator(int min, int max);
 
-    int getRandomNumber() const {
-        return random_number;
-    }
+    int get() const;
+
+
+    static void initialize();
 
 private:
     static std::mt19937 generator; // Static member to ensure it's shared across instances

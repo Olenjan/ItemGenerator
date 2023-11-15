@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     //Affix rolls
     {
         //Tiers ?
+
         //Prefix
         {
             Modifier* modLife = database->modifiers.get("mod_max_life");
@@ -305,36 +306,65 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pbFloatPhysical_clicked()
 {
-    CollapsedItemState newItem;
-
-
-
-    //Test1
+    try
     {
-        //CItemGenerator itemGen;
-        CAffixGenerator affixGen(database);
-        auto affix = affixGen.collapse();
+        int normalItems = 0;
+        int magicItems = 0;
+        int rareItems = 0;
 
-        int i = 0;
-    }
-    int i = 0;
+        int normalItemModCountAccum = 0;
+        int magicItemModCountAccum = 0;
+        int rareItemsModCountAccum = 0;
 
-/*
-    newItem.base = &database->itemBases.getAll()[0];
-    newItem.rarity = ERarity::RARE;
-    CollapsedAffix rolledMod;
-    {
-        rolledMod.roll = database->affixRolls.get("prefix_flat_physical_damage_1");
-        for(auto mr: rolledMod.roll->modifierRolls)
+        CollapsedItemState newItem;
+
+        CItemGenerator itemGen(database);
+
+        int itemsToGenerate = 1000;
+        for(int i = 0; i < itemsToGenerate; i++)
         {
-            mr.modifier;
+            qDebug() << "\nGenerate new " << i;
+            newItem = itemGen.generate();
+
+            if(newItem.rarity == ERarity::NORMAL)
+            {
+                normalItemModCountAccum += newItem.prefix.size() + newItem.suffix.size();
+                normalItems++;
+            }
+            else if(newItem.rarity == ERarity::MAGIC)
+            {
+                magicItemModCountAccum += newItem.prefix.size() + newItem.suffix.size();
+                if(!(newItem.prefix.size() + newItem.suffix.size() >= 1 && newItem.prefix.size() + newItem.suffix.size() <= 3))
+                {
+                    throw std::runtime_error("CItemGenerator::generate invalid magic item affix count");
+                }
+                magicItems++;
+            }
+            else if(newItem.rarity == ERarity::RARE)
+            {
+                rareItemsModCountAccum += newItem.prefix.size() + newItem.suffix.size();
+                if(!(newItem.prefix.size() + newItem.suffix.size() >= 3 && newItem.prefix.size() + newItem.suffix.size() <= 6))
+                {
+                    throw std::runtime_error("CItemGenerator::generate invalid rare item affix count");
+                }
+                rareItems++;
+            }
         }
+        qDebug() << "Generated " << itemsToGenerate << " Items";
+        qDebug() << "normalItems: " << normalItems;
+        qDebug() << "magicItems: " << magicItems;
+        qDebug() << "rareItems: " << rareItems;
+
+        qDebug() << "normalItemModCountAvg: " << static_cast<float>(normalItemModCountAccum) /static_cast<float>(normalItems);
+        qDebug() << "magicItemModCountAvg: " << static_cast<float>(magicItemModCountAccum)   /static_cast<float>(magicItems);
+        qDebug() << "rareItemsModCountAvg: " << static_cast<float>(rareItemsModCountAccum)   /static_cast<float>(rareItems);
+
+        ui->collapsedItemViewer->setItem(newItem);
     }
-    newItem.prefix.push_back(rolledMod);
-*/
-
-
-    ui->collapsedItemViewer->setItem(newItem);
+    catch(std::exception& e)
+    {
+        qDebug() << e.what();
+    }
 }
 
 

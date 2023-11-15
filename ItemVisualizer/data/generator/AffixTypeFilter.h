@@ -10,7 +10,12 @@ private:
     std::vector<EAffixType> m_Types;
 
 public:
-    AffixTypeFilter(std::vector<EAffixType> types)
+    AffixTypeFilter(EAffixType type)
+        :   m_Types({type})
+    {
+
+    }
+    AffixTypeFilter(const std::vector<EAffixType>& types)
         :   m_Types(types)
     {
     }

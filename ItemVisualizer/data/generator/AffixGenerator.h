@@ -11,6 +11,36 @@
 
 #include "AffixFilter.h"
 
+class CAffixGenerator: public AffixFilter
+{
+private:
+public:
+    CAffixGenerator(std::shared_ptr<Database> database)
+        :   AffixFilter(std::move(database))
+    {
+    }
+
+    virtual std::optional<CollapsedAffix> collapse()
+    {
+        auto possibleAffixRolls = getFilteredAffixRolls();
+
+        if(possibleAffixRolls.size() == 0)
+            return {};
+
+        //choose one | todo: weights
+        int possibleAffixIndex = RNG(0, possibleAffixRolls.size() - 1).get();
+
+        CollapsedAffix result;
+        result.roll = possibleAffixRolls[possibleAffixIndex];
+
+        for(const auto& modRoll: result.roll->modifierRolls)
+        {
+            int roll = RNG(modRoll.minMax.min, modRoll.minMax.max).get();
+            result.values.push_back(roll);
+        }
+        return result;
+    }
+};
 
 //CAffixGenerator Helps with generating affixes
 //Features:
@@ -34,49 +64,57 @@
 
 //Control roll
 //
-
-
-
-
-//Generate random affix
-class CAffixGenerator: public AffixFilter
+/*
+ * //Generate random affix
+class CAffixGenerator
 {
+private:
+    AffixFilter m_AffixFilter;
 public:
-    CAffixGenerator(std::shared_ptr<Database> database): AffixFilter(std::move(database))
+    CAffixGenerator(std::shared_ptr<Database> database)
+        :   m_AffixFilter(std::move(database))
     {
     }
 
+    AffixFilter& getAffixFilter(){return m_AffixFilter;}
 
     //Rolls values for given AffixRoll
-    virtual CollapsedAffix collapse() const
+    virtual std::optional<CollapsedAffix> collapse(EAffixType overloadAffixType = EAffixType::NONE)
     {
-        auto rollType = collapseAffixType();
-        auto affixRoll = collapseAffixRoll(rollType);
-        return collapseAffixRoll(affixRoll);
+        m_AffixFilter.clearFilter();
+
+        EAffixType rollType = overloadAffixType;
+        if(rollType == EAffixType::NONE)
+        {
+            rollType = static_cast<EAffixType>(RNG(2, 3).get());
+        }
+        m_AffixFilter.addFilter(std::make_unique<AffixTypeFilter>(rollType));
+
+        auto possibleAffixRolls = m_AffixFilter.getFilteredAffixRolls();
+
+        if(possibleAffixRolls.size() == 0)
+            return {};
+
+        //choose one | todo: weights
+        int possibleAffixIndex = RNG(0, possibleAffixRolls.size() - 1).get();
+
+
+        CollapsedAffix result;
+        result.roll = possibleAffixRolls[possibleAffixIndex];
+
+        int i = 0;
+        for(const auto& modRoll: result.roll->modifierRolls)
+        {
+            int roll = RNG(modRoll.minMax.min, modRoll.minMax.max).get();
+            result.values.push_back(roll);
+            i++;
+        }
+        return result;
     }
 
 private:
-
-    virtual EAffixType collapseAffixType() const
-    {
-        int number = RNG(1, 3).getRandomNumber();
-        return static_cast<EAffixType>(number);
-    }
-
-    virtual const AffixRoll* collapseAffixRoll(EAffixType affixType) const
-    {
-
-        return nullptr;
-    }
-
-
-    //Rolls values for given AffixRoll
-    virtual CollapsedAffix collapseAffixRoll(const AffixRoll* affixRoll) const
-    {
-        return CollapsedAffix{};
-    }
-
 private:
 };
+*/
 
 #endif // AFFIXGENERATOR_H

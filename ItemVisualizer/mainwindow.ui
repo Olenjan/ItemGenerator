@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1235</width>
-    <height>861</height>
+    <width>1544</width>
+    <height>793</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,53 +25,23 @@
         <string>Generate</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="4" column="1">
-         <widget class="ModifierViewer" name="modifierViewer" native="true"/>
-        </item>
-        <item row="0" column="0" rowspan="4" colspan="2">
+        <item row="0" column="0" rowspan="6" colspan="2">
          <widget class="BaseItemViewer" name="baseItemViewer" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
-            <width>200</width>
+            <width>400</width>
             <height>300</height>
            </size>
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
-         <widget class="QPushButton" name="pushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Random item</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5" rowspan="5">
-         <widget class="ItemView" name="collapsedItemViewer" native="true"/>
-        </item>
-        <item row="4" column="0">
-         <widget class="AffixRollsViewer" name="affixRollsViewer" native="true"/>
-        </item>
-        <item row="1" column="4">
-         <widget class="QPushButton" name="pbFloatPhysical">
-          <property name="text">
-           <string>Flat physical</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="4">
-         <widget class="QPushButton" name="pbPctPhysical">
-          <property name="text">
-           <string>Pct physical</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="4" rowspan="2">
+        <item row="5" column="3">
          <spacer name="verticalSpacer_2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -83,6 +53,76 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="6" column="1" colspan="3">
+         <widget class="ModifierViewer" name="modifierViewer" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>350</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="AffixRollsViewer" name="affixRollsViewer" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="8" rowspan="7">
+         <widget class="ItemView" name="collapsedItemViewer" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>600</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="9">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="3">
+         <widget class="QPushButton" name="pbFloatPhysical">
+          <property name="text">
+           <string>Flat physical</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QPushButton" name="pbPctPhysical">
+          <property name="text">
+           <string>Pct physical</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Random item</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -152,7 +192,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1235</width>
+     <width>1544</width>
      <height>21</height>
     </rect>
    </property>

@@ -2,7 +2,7 @@
 
 #include "BaseData.h"
 
-enum class ERarity
+enum class ERarity: uint8_t
 {
     UNKNOWN = 0,
     NORMAL = 1,

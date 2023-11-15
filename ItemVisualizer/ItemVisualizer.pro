@@ -14,6 +14,7 @@ SOURCES += \
     characterviewer.cpp \
     data/AffixRoll.cpp \
     data/collapsed/CollapsedAffix.cpp \
+    data/generator/RandomNumberGenerator.cpp \
     itemview.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     data/generator/AffixLevelFilter.h \
     data/generator/AffixModCountFilter.h \
     data/generator/AffixNameFilter.h \
+    data/generator/AffixNameTagDuplicationFilter.h \
     data/generator/AffixNameTagFilter.h \
     data/generator/AffixTagsFilter.h \
     data/generator/AffixTierFilter.h \

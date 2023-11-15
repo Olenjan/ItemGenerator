@@ -59,7 +59,7 @@ struct  AffixRoll
     Level level;
 
     EAffixType affixType;               // (Suffix)
-    Name itemName;                      // (of Something) Name contributed to item
+    Name itemName = "";                      // (of Something) Name contributed to item
     std::vector<EAffixTag> tags;
 
     ConstrainRangeBase* rangeConstraint = nullptr;

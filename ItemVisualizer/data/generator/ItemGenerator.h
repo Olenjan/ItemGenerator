@@ -1,5 +1,6 @@
 #ifndef ITEMGENERATOR_H
 #define ITEMGENERATOR_H
+#include <QDebug>
 
 #include "../database.h"
 #include "../AffixType.h"
@@ -78,6 +79,8 @@
     // Fusing Orb:
     // Randomly modifies the links between sockets on an item.
 
+    Fossils 	No X modifiers and others
+
  */
 
 //Generate new item with restrictions
@@ -94,53 +97,119 @@ public:
 
     virtual CollapsedItemState generate() const
     {
-        ERarity rarity = rollRarity();
-        if(rarity == ERarity::UNIQUE)
-            return rollUnique();
+        CollapsedItemState newItem;
 
-
-        CollapsedItemState item;
-        item.rarity = rarity;
-        item.base = rollBase();
-
-        int affixCount = rollAffixCount();
-
-        CAffixGenerator affixGen(m_Database);
-        for(int i = 0; i < affixCount; i++)
+        //base
         {
-            auto rollType = rollAffixType();
+            int rngBase = RNG(0, (int)m_Database->itemBases.getAll().size() - 1).get();
+            newItem.base = &m_Database->itemBases.getAll().at(rngBase);
+        }
+        qDebug() << "newItem.base: " << newItem.base;
 
-            //Filter affixes
-            affixGen.clear();
-            //affixGen.addFilter(std::make_unique<AffixTypeFilter>({rollType}));
+        //Test1
+        {
+            //CItemGenerator itemGen;
 
-            //Roll affix
-            auto collapsedAffix = affixGen.collapse();
+            newItem.rarity = static_cast<ERarity>(RNG(1, 3).get());
+            qDebug() << "newItem.rarity: " << toString(newItem.rarity).c_str();
 
-            if(rollType == EAffixType::IMPLICIT)
+            int rollsToPerform = 0;
             {
-                item.implicit.push_back(collapsedAffix);
+                if(newItem.rarity == ERarity::NORMAL)
+                {
+                    rollsToPerform = 0;
+                }
+                else if(newItem.rarity == ERarity::MAGIC)
+                {
+                    rollsToPerform = RNG(1, 3).get();
+                }
+                else if(newItem.rarity == ERarity::RARE)
+                {
+                    rollsToPerform = RNG(3, 6).get();
+                }
             }
-            else if(rollType == EAffixType::PREFIX)
+
+            qDebug() << "rollsToPerform: " << rollsToPerform;
+
+            for(int i = 0; i < rollsToPerform; i++)
             {
-                item.prefix.push_back(collapsedAffix);
+                CAffixGenerator affixGen(m_Database);
+
+                //Suffix,Prefix filtering
+                {
+                    std::vector<EAffixType> affixTypeFilters;// = ({EAffixType::PREFIX, EAffixType::SUFFIX});
+                    if(newItem.prefix.size() < 3)
+                        affixTypeFilters.push_back(EAffixType::PREFIX);
+
+                    if(newItem.suffix.size() < 3)
+                        affixTypeFilters.push_back(EAffixType::SUFFIX);
+
+                    affixGen.addFilter(std::make_unique<AffixTypeFilter>(affixTypeFilters));
+                }
+
+                //Leave emtpy or roll ?
+                {
+
+                }
+
+                //Do other filtering
+                {
+
+                }
+
+                CollapsedAffix affix = affixGen.collapse().value();
+                qDebug() << "affix: " << affix.getRolledName().c_str();
+
+                //Add collapsed affix to item
+                {
+                    if(affix.roll->affixType== EAffixType::PREFIX)
+                    {
+                        newItem.prefix.push_back(affix);
+                    }
+                    else if(affix.roll->affixType == EAffixType::SUFFIX)
+                    {
+                        newItem.suffix.push_back(affix);
+                    }
+                    else
+                    {
+                        throw std::runtime_error("CItemGenerator::collapse invalid affix type generated");
+
+                    }
+                }
             }
-            else if(rollType == EAffixType::SUFFIX)
-            {
-                item.suffix.push_back(collapsedAffix);
-            }
+
+            qDebug() << "Done, generating name";
+
+            //Name
+            std::string selectedPrefix = "";
+            std::string selectedSuffix = "";
+
+            if(!newItem.prefix.empty() && newItem.prefix.at(0).roll != nullptr)
+                selectedPrefix = newItem.prefix.at(0).roll->itemName;
+            if(!newItem.suffix.empty() && newItem.suffix.at(0).roll != nullptr)
+                selectedSuffix = newItem.suffix.at(0).roll->itemName;
+
+            qDebug() << "newItem.base->name: " << newItem.base->name.c_str();
+            qDebug() << "selectedPrefix: " << selectedPrefix.c_str();
+            qDebug() << "selectedSuffix: " << selectedSuffix.c_str();
+
+
+            newItem.name =selectedPrefix + " " + newItem.base->name + " " + selectedSuffix;
+            qDebug() << "name: " << newItem.name.c_str();
         }
 
-        return item;
+        return newItem;
     }
 
 private:
-    virtual const ItemBase*     rollBase() const = 0;
+    /*
+     *     virtual const ItemBase*     rollBase() const = 0;
     virtual ERarity             rollRarity() const = 0;
     virtual int                 rollAffixCount() const = 0;
     virtual EAffixType          rollAffixType() const = 0;
 
     virtual CollapsedItemState  rollUnique() const = 0;
+*/
 };
 
 /*
