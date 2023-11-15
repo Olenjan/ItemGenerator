@@ -17,7 +17,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const AffixRoll& affixRoll) const override
+    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
     {
         return (m_MinValue == -1 || affixRoll.modifierRolls.size() >= m_MinValue) && (m_MaxValue == -1 || affixRoll.modifierRolls.size() <= m_MaxValue);
     }

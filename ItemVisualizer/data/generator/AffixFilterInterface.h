@@ -25,7 +25,7 @@ public:
 public:
     AffixFilterInterface() = default;
 
-    virtual bool acceptAffixRoll(const AffixRoll& affixRoll) const = 0;
+    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const = 0;
 };
 
 

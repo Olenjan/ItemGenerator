@@ -13,20 +13,20 @@
 #include "AffixTierFilter.h"
 #include "AffixModCountFilter.h"
 
-class AffixFilter
+class AffixDataAccessObject
 {
 private:
     std::shared_ptr<Database> m_Database;
     std::vector<std::unique_ptr<AffixFilterInterface>> m_Filters; // Owned filters
 
 public:
-    AffixFilter(std::shared_ptr<Database> database)
+    AffixDataAccessObject(std::shared_ptr<Database> database)
         :   m_Database(std::move(database))
     {
 
     }
 
-    AffixFilter& addFilter(std::unique_ptr<AffixFilterInterface> filter)
+    AffixDataAccessObject& addFilter(std::unique_ptr<AffixFilterInterface> filter)
     {
         m_Filters.emplace_back(std::move(filter));
 
@@ -44,9 +44,9 @@ public:
     }
 
     //todo: remove AffixRoll* raw
-    std::vector<const AffixRoll*> getFilteredAffixRolls() const
+    std::vector<const PossibleAffix*> getFilteredAffixRolls() const
     {
-        std::vector<const AffixRoll*> result;
+        std::vector<const PossibleAffix*> result;
 
         for(const auto& ar: m_Database->affixRolls.getAll())
         {

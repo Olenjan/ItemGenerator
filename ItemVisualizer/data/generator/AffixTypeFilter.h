@@ -38,7 +38,7 @@ public:
         All of [Implicit, Prefix, Suffix]:
             Accepts: [0], [1], [2]
     */
-    virtual bool acceptAffixRoll(const AffixRoll& affixRoll) const override
+    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
     {
         return std::any_of(m_Types.begin(), m_Types.end(), [affixRoll](const EAffixType& affixType){ return affixRoll.affixType == affixType;});
     }

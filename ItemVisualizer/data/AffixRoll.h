@@ -12,6 +12,31 @@
 #include "collapsed/CollapsedAffix.h"
 
 #include "Modifier.h"
+#include "data/generator/RandomNumberGenerator.h"
+
+//Should I store PossibleItems in a Generator memory, or in database ?
+//Depending on this choice we have an option to either reference PotentialItems by reference or pointer
+//	by pointer if memory, by reference if database.
+
+//Depending on this choice:
+// Either rely on optimal SQL query or fast C++ lookup
+//		Either to load all database into memory for item generation
+//		Or query database on some criteria ?
+
+//Probleem:
+//	Itemite genereerimine
+//		Kui ma storen SQL databases kõiki possible affixe, modifiere, nende rolle, item base ja weighte asju
+//		Kas on optimaalsem laadida kõik need tabelid mällu et kiiresti genereerida ja filterdada
+//			või teha SQL query iga kord kui itemi genereerid mingil kriteeriumile
+//		Kriteerium filter toimub nagunii, aga kas SQL querys või mälust otsides
+
+//	In the context of random item generation in an ARPG
+//	If I were to store all possible affixes, modifiers, their rolls, item bases, tags, drop weights and such in an SQL database.
+//		Would it be optimal to either:
+//			* perform an SQL query based on roll criteria
+//			* Load everything into memory beforehand and manual filter on roll criteria ?
+
+// Best solution:
 
 struct AffixMinMaxRoll
 {
@@ -19,13 +44,20 @@ struct AffixMinMaxRoll
     RollValue max;
 };
 
-struct AffixModifierRoll
+struct PossibleAffixModifier
 {
     EAffixRollEffectType effectType;    // (numeric mod)
 
     AffixMinMaxRoll minMax;
 
-    Modifier* modifier;
+    Modifier modifier;
+
+    RollValue collapse() const
+    {
+        return RNG((int)minMax.min, (int)minMax.max).get();
+    }
+
+
 };
 
 class ConstrainRangeBase
@@ -33,13 +65,13 @@ class ConstrainRangeBase
 public:
     ConstrainRangeBase() = default;
 
-    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const AffixModifierRoll& currentModRolls, int modRollID) = 0;
+    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const PossibleAffixModifier& currentModRolls, int modRollID) = 0;
 };
 
 inline const char ROLL_NUMBER_WILDCARD = '#';
 
 //todo: Tier ?
-struct  AffixRoll
+struct  PossibleAffix
 {
     TableID id;
     EAffixTier tier;
@@ -54,7 +86,7 @@ struct  AffixRoll
                                         // (prefix_x_increase_physical_damage) '_' separated nametag
                                         //# to Maximum Life;# to Maximum Stamina
 
-    std::vector<AffixModifierRoll> modifierRolls; // One affix can have multiple rolls affecting different
+    std::vector<PossibleAffixModifier> modifierRolls; // One affix can have multiple rolls affecting different
 
     Level level;
 
@@ -63,6 +95,32 @@ struct  AffixRoll
     std::vector<EAffixTag> tags;
 
     ConstrainRangeBase* rangeConstraint = nullptr;
+
+    CollapsedAffix collapse() const
+    {
+        CollapsedAffix result;
+        /*
+
+        result.roll = rolledAffix;
+
+        int i = 0;
+        for(auto modRoll: rolledAffix->modifierRolls)
+        {
+            AffixMinMaxRoll minMax = modRoll.minMax;
+            if(rolledAffix->rangeConstraint)
+            {
+                minMax = rolledAffix->rangeConstraint->call(rolledMod, modRoll, i);
+            }
+            auto rngValue = QRandomGenerator::global()->bounded((int)minMax.min, (int)minMax.max);
+            rolledMod.values.push_back(rngValue);
+
+            i++;
+        }
+
+        rolls.emplace_back(rolledMod);
+        */
+        return result;
+    }
 
     bool validate() const
     {
@@ -107,7 +165,7 @@ public:
     //  rollsSoFar - Rolled RNG cache
     //  currentModRolls - Current mod being rolled
     //  modRollID - number n of mod being rolled; modRollID - 1 = previous mod when modRollID > 0
-    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const AffixModifierRoll& currentModRolls, int modRollID)
+    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const PossibleAffixModifier& currentModRolls, int modRollID)
     {
         auto newMin = currentModRolls.minMax.min;
         if(modRollID == 1 && rollsSoFar.values[0] > newMin)

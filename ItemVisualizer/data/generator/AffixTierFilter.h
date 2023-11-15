@@ -18,7 +18,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const AffixRoll& affixRoll) const override
+    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
     {
         return (m_MinValue == EAffixTier::NONE || affixRoll.tier >= m_MinValue) && (m_MaxValue == EAffixTier::NONE || affixRoll.tier <= m_MaxValue);
     }

@@ -11,12 +11,12 @@
 
 #include "AffixFilter.h"
 
-class CAffixGenerator: public AffixFilter
+class CAffixGenerator: public AffixDataAccessObject
 {
 private:
 public:
     CAffixGenerator(std::shared_ptr<Database> database)
-        :   AffixFilter(std::move(database))
+        :   AffixDataAccessObject(std::move(database))
     {
     }
 

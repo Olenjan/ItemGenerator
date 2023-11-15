@@ -17,7 +17,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const AffixRoll& affixRoll) const override
+    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
     {
         if(m_StrFilterType == EStringFilterType::MATCH_UP)
         {

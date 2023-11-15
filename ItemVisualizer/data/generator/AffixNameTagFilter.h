@@ -19,7 +19,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const AffixRoll& affixRoll) const override
+    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
     {
         //nametags are always lower case, check only regex
         if( m_StrFilterType == EStringFilterType::MATCH_UP ||

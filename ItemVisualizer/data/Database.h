@@ -10,6 +10,6 @@ struct Database
 {
     CDataTableBase<ItemBase>  itemBases;
     CDataTableBase<Modifier>  modifiers;
-    CDataTableBase<AffixRoll> affixRolls;
+    CDataTableBase<PossibleAffix> affixRolls;
     CDataTableBase<CollapsedItemState> uniqueItems;
 };

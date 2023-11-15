@@ -15,7 +15,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const AffixRoll& affixRoll) const override
+    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
     {
         //Not implemented, i dont wanna make this non-const
         //Need to find a better solution, maybe one comes up during SQL development when we need to change architecture a bit anyway
