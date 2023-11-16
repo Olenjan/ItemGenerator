@@ -131,6 +131,9 @@ public:
 
             qDebug() << "rollsToPerform: " << rollsToPerform;
 
+
+            std::vector<CollapsedAffix> testAffixes;
+            auto duplicateFilter = std::make_shared<AffixNameTagDuplicationFilter>();
             for(int i = 0; i < rollsToPerform; i++)
             {
                 CAffixGenerator affixGen(m_Database);
@@ -144,7 +147,8 @@ public:
                     if(newItem.suffix.size() < 3)
                         affixTypeFilters.push_back(EAffixType::SUFFIX);
 
-                    affixGen.addFilter(std::make_unique<AffixTypeFilter>(affixTypeFilters));
+                    affixGen.addFilter(std::make_shared<AffixTypeFilter>(affixTypeFilters));
+                    affixGen.addFilter(duplicateFilter);
                 }
 
                 //Leave emtpy or roll ?
@@ -157,7 +161,10 @@ public:
 
                 }
 
+
                 CollapsedAffix affix = affixGen.collapse().value();
+                duplicateFilter->addNameTag(affix.roll->nameTag);
+                testAffixes.push_back(affix);
                 qDebug() << "affix: " << affix.getRolledName().c_str();
 
                 //Add collapsed affix to item
@@ -177,6 +184,26 @@ public:
                     }
                 }
             }
+
+
+            //Test identical
+            {
+                std::vector<NameTag> nameTags;
+                for(auto ta: testAffixes)
+                {
+                    bool contains = std::any_of(nameTags.begin(), nameTags.end(), [ta](NameTag otherNameTag){
+                        return otherNameTag.compare(ta.roll->nameTag) == 0;
+                    });
+
+                    if(contains)
+                        int i = 0;
+                    nameTags.push_back(ta.roll->nameTag);
+                }
+
+                int i = 0;
+
+            }
+
 
             qDebug() << "Done, generating name";
 

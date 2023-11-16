@@ -12,12 +12,13 @@
 #include "AffixLevelFilter.h"
 #include "AffixTierFilter.h"
 #include "AffixModCountFilter.h"
+#include "AffixNameTagDuplicationFilter.h"
 
 class AffixDataAccessObject
 {
 private:
     std::shared_ptr<Database> m_Database;
-    std::vector<std::unique_ptr<AffixFilterInterface>> m_Filters; // Owned filters
+    std::vector<std::shared_ptr<AffixFilterInterface>> m_Filters; // Owned filters
 
 public:
     AffixDataAccessObject(std::shared_ptr<Database> database)
@@ -26,7 +27,7 @@ public:
 
     }
 
-    AffixDataAccessObject& addFilter(std::unique_ptr<AffixFilterInterface> filter)
+    AffixDataAccessObject& addFilter(std::shared_ptr<AffixFilterInterface> filter)
     {
         m_Filters.emplace_back(std::move(filter));
 
@@ -53,13 +54,10 @@ public:
             bool arAccepted = true;
             for(const auto& f: m_Filters)
             {
-                if(f->acceptAffixRoll(ar))
-                {
-                    int i = 0;
-                }
-                else
+                if(f->acceptAffixRoll(ar) == false)
                 {
                     arAccepted = false;
+                    break;
                 }
             }
             if(arAccepted)
