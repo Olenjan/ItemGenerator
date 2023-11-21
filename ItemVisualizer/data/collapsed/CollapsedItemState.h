@@ -1,9 +1,9 @@
 #pragma once
 
 #include <unordered_map>
-#include "../BaseData.h"
-#include "../ItemBase.h"
-#include "../AffixRoll.h"
+#include "../entry/DataTableBase.h"
+#include "../entry/ItemBase.h"
+#include "../entry/AffixRoll.h"
 #include "../Rarity.h"
 
 

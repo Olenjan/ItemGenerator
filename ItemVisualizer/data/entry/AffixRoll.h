@@ -3,13 +3,13 @@
 
 #include <functional>
 
-#include "BaseData.h"
+#include "DataTableBase.h"
 
-#include "AffixRollEffetType.h"
-#include "AffixTag.h"
-#include "AffixType.h"
+#include "../AffixRollEffetType.h"
+#include "../AffixTag.h"
+#include "../AffixType.h"
 
-#include "collapsed/CollapsedAffix.h"
+#include "../collapsed/CollapsedAffix.h"
 
 #include "Modifier.h"
 
@@ -63,7 +63,7 @@ struct RandomStateAffix
     Level level;
 
     EAffixType affixType;               // (Suffix)
-    Name itemName = "";                      // (of Something) Name contributed to item
+    Name itemName = "";                 // (of Something) Name contributed to item
     std::vector<EAffixTag> tags;
 
     ConstrainRangeBase* rangeConstraint = nullptr;

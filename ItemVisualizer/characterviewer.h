@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QWidget>
 
-#include "data/Character.h"
+#include "data/entry/Character.h"
 
 namespace Ui {
 class CharacterViewer;

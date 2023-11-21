@@ -4,9 +4,9 @@
 #include <regex>
 #include "RandomNumberGenerator.h"
 
-#include "../data/database.h"
+#include "../data/RollDatabase.h"
 #include "../data/AffixType.h"
-#include "../data/AffixRoll.h"
+#include "../data/entry/AffixRoll.h"
 #include "../data/Rarity.h"
 
 #include "../logic/affix/AffixDAO.h"
@@ -15,7 +15,7 @@ class CAffixGenerator: public AffixDataAccessObject
 {
 private:
 public:
-    CAffixGenerator(std::shared_ptr<Database> database)
+    CAffixGenerator(std::shared_ptr<RollDatabase> database)
         :   AffixDataAccessObject(std::move(database))
     {
     }

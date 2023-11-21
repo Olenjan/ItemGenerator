@@ -12,9 +12,13 @@ SOURCES += \
     affixrollsviewer.cpp \
     baseitemviewer.cpp \
     characterviewer.cpp \
-    data/AffixRoll.cpp \
+    \
+    data/entry/AffixRoll.cpp \
+    \
     data/collapsed/CollapsedAffix.cpp \
+    \
     generator/RandomNumberGenerator.cpp \
+    \
     itemview.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,20 +28,21 @@ HEADERS += \
     affixrollsviewer.h \
     baseitemviewer.h \
     characterviewer.h \
-    data/AffixRoll.h \
     data/AffixRollEffetType.h \
     data/AffixTag.h \
     data/AffixType.h \
-    data/BaseData.h \
-    data/Character.h \
     data/collapsed/CollapsedAffix.h \
     data/collapsed/CollapsedItemState.h \
-    data/database.h \
-    data/ItemBase.h \
     data/ItemBaseSlotType.h \
-    data/Modifier.h \
     data/ModifierType.h \
     data/Rarity.h \
+    data/RollDatabase.h \
+    \
+    data/entry/Modifier.h \
+    data/entry/ItemBase.h \
+    data/entry/DataTableBase.h \
+    data/entry/Character.h \
+    data/entry/AffixRoll.h \
     \
     generator/ItemGenerator.h \
     generator/RandomNumberGenerator.h \

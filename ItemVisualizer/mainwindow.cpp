@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    database = std::make_shared<Database>();
+    
+    database = std::make_shared<RollDatabase>();
 
     ui->characterViewer->initialize(myCharacter);
 

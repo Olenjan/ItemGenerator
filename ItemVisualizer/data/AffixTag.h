@@ -1,7 +1,7 @@
 #ifndef AFFIXTAG_H
 #define AFFIXTAG_H
 
-#include "BaseData.h"
+#include "entry/DataTableBase.h"
 
 enum class EAffixTag
 {

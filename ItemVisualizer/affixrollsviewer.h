@@ -3,7 +3,7 @@
 
 #include <QDebug>
 #include <QWidget>
-#include "data/AffixRoll.h"
+#include "data/entry/AffixRoll.h"
 #include "data/AffixType.h"
 
 namespace Ui {

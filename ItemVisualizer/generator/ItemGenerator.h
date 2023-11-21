@@ -2,15 +2,15 @@
 #define ITEMGENERATOR_H
 #include <QDebug>
 
-#include "../data/database.h"
+#include "../data/RollDatabase.h"
 #include "../data/AffixType.h"
-#include "../data/AffixRoll.h"
+#include "../data/entry/AffixRoll.h"
 #include "../data/Rarity.h"
 
 #include "../data/collapsed/CollapsedAffix.h"
 #include "../data/collapsed/CollapsedItemState.h"
 
-#include "AffixGenerator.h"
+#include "generator/AffixGenerator.h"
 
 
 
@@ -88,9 +88,9 @@ class CItemGenerator
 {
 
 private:
-    std::shared_ptr<Database> m_Database;
+    std::shared_ptr<RollDatabase> m_Database;
 public:
-    CItemGenerator(std::shared_ptr<Database> database)
+    CItemGenerator(std::shared_ptr<RollDatabase> database)
         :   m_Database(std::move(database))
     {
     }

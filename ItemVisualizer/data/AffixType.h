@@ -1,7 +1,7 @@
 #ifndef AFFIXTYPE_H
 #define AFFIXTYPE_H
 
-#include "BaseData.h"
+#include "entry/DataTableBase.h"
 
 
 enum class EAffixTier

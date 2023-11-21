@@ -3,7 +3,7 @@
 
 #include <QDebug>
 #include <QWidget>
-#include "data/Modifier.h"
+#include "data/entry/Modifier.h"
 
 namespace Ui {
 class ModifierViewer;

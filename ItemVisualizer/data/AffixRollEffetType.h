@@ -1,7 +1,7 @@
 #ifndef AFFIXROLLEFFECTTYPE_H
 #define AFFIXROLLEFFECTTYPE_H
 
-#include "BaseData.h"
+#include "entry/DataTableBase.h"
 
 enum class EAffixRollEffectType
 {

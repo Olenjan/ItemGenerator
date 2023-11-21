@@ -1,7 +1,7 @@
 #pragma once
 
-#include "BaseData.h"
-#include "ModifierType.h"
+#include "DataTableBase.h"
+#include "../ModifierType.h"
 
 struct Modifier
 {

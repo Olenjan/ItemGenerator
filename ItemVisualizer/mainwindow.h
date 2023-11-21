@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QRandomGenerator>
-#include "data/database.h"
-#include "data/Character.h"
+#include "data/RollDatabase.h"
+#include "data/entry/Character.h"
 #include "generator/ItemGenerator.h"
 
 QT_BEGIN_NAMESPACE
@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
 
 
     CharacterStats myCharacter;
-    std::shared_ptr<Database> database;
+    std::shared_ptr<RollDatabase> database;
 
 public:
     MainWindow(QWidget *parent = nullptr);

@@ -2,7 +2,7 @@
 #define AFFIXNAMETAGDUPLICATIONFILTER_H
 
 #include "AffixFilterInterface.h"
-#include "../../data/AffixRoll.h"
+#include "../../data/entry/AffixRoll.h"
 #include <QDebug>
 
 

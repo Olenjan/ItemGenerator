@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseData.h"
+#include "entry/DataTableBase.h"
 
 enum class ERarity: uint8_t
 {

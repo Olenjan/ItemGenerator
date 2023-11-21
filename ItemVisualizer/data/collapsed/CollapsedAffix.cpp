@@ -1,7 +1,7 @@
 #include "CollapsedAffix.h"
 
 // Include in .cpp to avoid compiler warning, .h is included in AffixRolls.h and would cause circular dependency
-#include "../AffixRoll.h"
+#include "../entry/AffixRoll.h"
 
 const std::string CollapsedAffix::getRolledName() const
 {

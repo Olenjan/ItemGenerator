@@ -1,7 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "BaseData.h"
+#include "DataTableBase.h"
 #include "Modifier.h"
 
 

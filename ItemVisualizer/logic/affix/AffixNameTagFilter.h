@@ -2,7 +2,7 @@
 #define AFFIXNAMETAGFILTER_H
 
 #include <regex>
-#include "../../data/AffixRoll.h"
+#include "../../data/entry/AffixRoll.h"
 #include "AffixFilterInterface.h"
 
 

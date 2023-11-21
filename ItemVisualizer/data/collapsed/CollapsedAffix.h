@@ -2,7 +2,7 @@
 #define COLLAPSEDAFFIX_H
 
 #include <vector>
-#include "../BaseData.h"
+#include "../entry/DataTableBase.h"
 
 struct RandomStateAffix;
 struct CollapsedAffix

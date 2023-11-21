@@ -2,7 +2,7 @@
 #define AFFIXDAO_H
 
 #include "AffixFilterInterface.h"
-#include "../../data/database.h"
+#include "../../data/RollDatabase.h"
 
 #include "AffixTypeFilter.h"
 #include "AffixTagsFilter.h"
@@ -17,11 +17,11 @@
 class AffixDataAccessObject
 {
 private:
-    std::shared_ptr<Database> m_Database;
+    std::shared_ptr<RollDatabase> m_Database;
     std::vector<std::shared_ptr<AffixFilterInterface>> m_Filters; // Owned filters
 
 public:
-    AffixDataAccessObject(std::shared_ptr<Database> database)
+    AffixDataAccessObject(std::shared_ptr<RollDatabase> database)
         :   m_Database(std::move(database))
     {
 

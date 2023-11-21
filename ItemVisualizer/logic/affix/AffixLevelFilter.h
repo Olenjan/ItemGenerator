@@ -2,7 +2,7 @@
 #define AFFIXLEVELFILTER_H
 
 #include "AffixFilterInterface.h"
-#include "../../data/AffixRoll.h"
+#include "../../data/entry/AffixRoll.h"
 
 //nametags are always lower case, check only regex
 class AffixLevelFilter: public AffixFilterInterface

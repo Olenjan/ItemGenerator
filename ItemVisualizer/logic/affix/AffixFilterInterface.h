@@ -2,7 +2,7 @@
 #define AFFIXFILTERINTERFACE_H
 
 #include <stdint.h>
-#include "../../data/AffixRoll.h"
+#include "../../data/entry/AffixRoll.h"
 
 class AffixFilterInterface
 {

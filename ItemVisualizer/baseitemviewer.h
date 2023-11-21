@@ -2,7 +2,7 @@
 #define BASEITEMVIEWER_H
 
 #include <QWidget>
-#include "data/ItemBase.h"
+#include "data/entry/ItemBase.h"
 
 namespace Ui {
 class BaseItemViewer;
