@@ -1,8 +1,8 @@
-#ifndef AFFIXFILTER_H
-#define AFFIXFILTER_H
+#ifndef AFFIXDAO_H
+#define AFFIXDAO_H
 
 #include "AffixFilterInterface.h"
-#include "../database.h"
+#include "../../data/database.h"
 
 #include "AffixTypeFilter.h"
 #include "AffixTagsFilter.h"
@@ -45,9 +45,9 @@ public:
     }
 
     //todo: remove AffixRoll* raw
-    std::vector<const PossibleAffix*> getFilteredAffixRolls() const
+    std::vector<const RandomStateAffix*> getFilteredAffixRolls() const
     {
-        std::vector<const PossibleAffix*> result;
+        std::vector<const RandomStateAffix*> result;
 
         for(const auto& ar: m_Database->affixRolls.getAll())
         {
@@ -68,4 +68,4 @@ public:
     };
 };
 
-#endif // AFFIXFILTER_H
+#endif // AFFIXDAO_H

@@ -4,12 +4,12 @@
 #include <regex>
 #include "RandomNumberGenerator.h"
 
-#include "../database.h"
-#include "../AffixType.h"
-#include "../AffixRoll.h"
-#include "../Rarity.h"
+#include "../data/database.h"
+#include "../data/AffixType.h"
+#include "../data/AffixRoll.h"
+#include "../data/Rarity.h"
 
-#include "AffixFilter.h"
+#include "../logic/affix/AffixDAO.h"
 
 class CAffixGenerator: public AffixDataAccessObject
 {

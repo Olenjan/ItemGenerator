@@ -2,6 +2,7 @@
 #define AFFIXNAMETAGDUPLICATIONFILTER_H
 
 #include "AffixFilterInterface.h"
+#include "../../data/AffixRoll.h"
 #include <QDebug>
 
 
@@ -19,7 +20,7 @@ public:
     void setNameTagCache(const std::vector<NameTag>& nameTagCache){m_NameTagCache = nameTagCache;}
     void clearNameTagCache(){m_NameTagCache.clear();}
 
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const override
     {
         bool contains = std::any_of(m_NameTagCache.begin(), m_NameTagCache.end(), [affixRoll](const NameTag& nameTag){
             return affixRoll.nameTag.compare(nameTag) == 0;

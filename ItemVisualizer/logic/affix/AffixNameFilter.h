@@ -2,6 +2,7 @@
 #define AFFIXNAMEFILTER_H
 
 #include <regex>
+#include "../../data/AffixRoll.h"
 #include "AffixFilterInterface.h"
 
 class AffixNameFilter: public AffixFilterInterface
@@ -17,7 +18,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const override
     {
         if(m_StrFilterType == EStringFilterType::MATCH_UP)
         {
@@ -42,6 +43,8 @@ public:
                 return false;
             }
         }
+
+        return true;
     }
 };
 

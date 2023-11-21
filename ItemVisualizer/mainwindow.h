@@ -5,7 +5,7 @@
 #include <QRandomGenerator>
 #include "data/database.h"
 #include "data/Character.h"
-#include "data/generator/ItemGenerator.h"
+#include "generator/ItemGenerator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

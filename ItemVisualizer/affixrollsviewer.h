@@ -14,15 +14,15 @@ class AffixRollsViewer : public QWidget
 {
     Q_OBJECT
 private:
-    CDataTableBase<PossibleAffix>* m_AffixRollsDataTable;
+    CDataTableBase<RandomStateAffix>* m_AffixRollsDataTable;
 public:
     explicit AffixRollsViewer(QWidget *parent = nullptr);
     ~AffixRollsViewer();
-
-    void initialize(CDataTableBase<PossibleAffix>* affixRollsDataTable);
+    
+    void initialize(CDataTableBase<RandomStateAffix>* affixRollsDataTable);
 
 signals:
-    void signalSelectedRoll(const PossibleAffix* roll);
+    void signalSelectedRoll(const RandomStateAffix* roll);
 
 private slots:
     void on_listWidget_currentRowChanged(int currentRow);

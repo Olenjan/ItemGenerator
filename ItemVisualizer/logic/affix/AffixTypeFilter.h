@@ -2,7 +2,7 @@
 #define AFFIXTYPEFILTER_H
 
 #include "AffixFilterInterface.h"
-#include "../AffixType.h"
+#include "../../data/AffixType.h"
 
 class AffixTypeFilter: public AffixFilterInterface
 {
@@ -38,7 +38,7 @@ public:
         All of [Implicit, Prefix, Suffix]:
             Accepts: [0], [1], [2]
     */
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const override
     {
         return std::any_of(m_Types.begin(), m_Types.end(), [affixRoll](const EAffixType& affixType){ return affixRoll.affixType == affixType;});
     }

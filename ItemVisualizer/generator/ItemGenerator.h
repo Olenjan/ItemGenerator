@@ -2,13 +2,13 @@
 #define ITEMGENERATOR_H
 #include <QDebug>
 
-#include "../database.h"
-#include "../AffixType.h"
-#include "../AffixRoll.h"
-#include "../Rarity.h"
+#include "../data/database.h"
+#include "../data/AffixType.h"
+#include "../data/AffixRoll.h"
+#include "../data/Rarity.h"
 
-#include "../collapsed/CollapsedAffix.h"
-#include "../collapsed/CollapsedItemState.h"
+#include "../data/collapsed/CollapsedAffix.h"
+#include "../data/collapsed/CollapsedItemState.h"
 
 #include "AffixGenerator.h"
 

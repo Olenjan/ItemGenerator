@@ -2,7 +2,7 @@
 #define AFFIXTIERFILTER_H
 
 #include "AffixFilterInterface.h"
-#include "../AffixType.h"
+#include "../../data/AffixType.h"
 
 //nametags are always lower case, check only regex
 class AffixTierFilter: public AffixFilterInterface
@@ -18,7 +18,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const override
     {
         return (m_MinValue == EAffixTier::NONE || affixRoll.tier >= m_MinValue) && (m_MaxValue == EAffixTier::NONE || affixRoll.tier <= m_MaxValue);
     }

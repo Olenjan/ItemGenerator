@@ -2,6 +2,7 @@
 #define AFFIXMODCOUNTFILTER_H
 
 #include "AffixFilterInterface.h"
+#include "../../data/AffixRoll.h"
 
 //nametags are always lower case, check only regex
 class AffixModCountFilter: public AffixFilterInterface
@@ -17,7 +18,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const override
     {
         return (m_MinValue == -1 || affixRoll.modifierRolls.size() >= m_MinValue) && (m_MaxValue == -1 || affixRoll.modifierRolls.size() <= m_MaxValue);
     }

@@ -14,7 +14,7 @@ SOURCES += \
     characterviewer.cpp \
     data/AffixRoll.cpp \
     data/collapsed/CollapsedAffix.cpp \
-    data/generator/RandomNumberGenerator.cpp \
+    generator/RandomNumberGenerator.cpp \
     itemview.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -38,19 +38,22 @@ HEADERS += \
     data/Modifier.h \
     data/ModifierType.h \
     data/Rarity.h \
-    data/generator/AffixFilter.h \
-    data/generator/AffixFilterInterface.h \
-    data/generator/AffixGenerator.h \
-    data/generator/AffixLevelFilter.h \
-    data/generator/AffixModCountFilter.h \
-    data/generator/AffixNameFilter.h \
-    data/generator/AffixNameTagDuplicationFilter.h \
-    data/generator/AffixNameTagFilter.h \
-    data/generator/AffixTagsFilter.h \
-    data/generator/AffixTierFilter.h \
-    data/generator/AffixTypeFilter.h \
-    data/generator/ItemGenerator.h \
-    data/generator/RandomNumberGenerator.h \
+    \
+    generator/ItemGenerator.h \
+    generator/RandomNumberGenerator.h \
+    generator/AffixGenerator.h \
+    \
+    logic/affix/AffixDAO.h \
+    logic/affix/AffixFilterInterface.h \
+    logic/affix/AffixLevelFilter.h \
+    logic/affix/AffixModCountFilter.h \
+    logic/affix/AffixNameFilter.h \
+    logic/affix/AffixNameTagDuplicationFilter.h \
+    logic/affix/AffixNameTagFilter.h \
+    logic/affix/AffixTagsFilter.h \
+    logic/affix/AffixTierFilter.h \
+    logic/affix/AffixTypeFilter.h \
+    \
     itemview.h \
     mainwindow.h \
     modifierviewer.h \

@@ -2,6 +2,7 @@
 #define AFFIXNAMETAGFILTER_H
 
 #include <regex>
+#include "../../data/AffixRoll.h"
 #include "AffixFilterInterface.h"
 
 
@@ -19,7 +20,7 @@ public:
     {
     }
 
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const override
     {
         //nametags are always lower case, check only regex
         if( m_StrFilterType == EStringFilterType::MATCH_UP ||
@@ -40,6 +41,8 @@ public:
                 return false;
             }
         }
+
+        return true;
     }
 };
 

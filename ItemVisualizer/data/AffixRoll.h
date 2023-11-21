@@ -12,7 +12,6 @@
 #include "collapsed/CollapsedAffix.h"
 
 #include "Modifier.h"
-#include "data/generator/RandomNumberGenerator.h"
 
 // Best solution:
 
@@ -24,18 +23,13 @@ struct AffixMinMaxRoll
     RollValue max;
 };
 
-struct PossibleAffixModifier
+struct RandomStateAffixModifier
 {
     EAffixRollEffectType effectType;    // (numeric mod)
 
     AffixMinMaxRoll minMax;
 
     const Modifier* modifier;
-
-    RollValue collapse() const
-    {
-        return RNG(minMax.min, minMax.max).get();
-    }
 };
 
 class ConstrainRangeBase
@@ -43,13 +37,13 @@ class ConstrainRangeBase
 public:
     ConstrainRangeBase() = default;
 
-    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const PossibleAffixModifier& currentModRolls, int modRollID) = 0;
+    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const RandomStateAffixModifier& currentModRolls, int modRollID) = 0;
 };
 
 inline const char ROLL_NUMBER_WILDCARD = '#';
 
 //todo: Tier ?
-struct  PossibleAffix
+struct RandomStateAffix
 {
     TableID id;
     EAffixTier tier;
@@ -64,7 +58,7 @@ struct  PossibleAffix
                                         // (prefix_x_increase_physical_damage) '_' separated nametag
                                         //# to Maximum Life;# to Maximum Stamina
 
-    std::vector<PossibleAffixModifier> modifierRolls; // One affix can have multiple rolls affecting different
+    std::vector<RandomStateAffixModifier> modifierRolls; // One affix can have multiple rolls affecting different
 
     Level level;
 
@@ -117,7 +111,7 @@ public:
     //  rollsSoFar - Rolled RNG cache
     //  currentModRolls - Current mod being rolled
     //  modRollID - number n of mod being rolled; modRollID - 1 = previous mod when modRollID > 0
-    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const PossibleAffixModifier& currentModRolls, int modRollID)
+    virtual AffixMinMaxRoll call(const CollapsedAffix& rollsSoFar, const RandomStateAffixModifier& currentModRolls, int modRollID)
     {
         auto newMin = currentModRolls.minMax.min;
         if(modRollID == 1 && rollsSoFar.values[0] > newMin)

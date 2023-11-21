@@ -4,10 +4,10 @@
 #include <vector>
 #include "../BaseData.h"
 
-struct PossibleAffix;
+struct RandomStateAffix;
 struct CollapsedAffix
 {
-    const PossibleAffix* roll;
+    const RandomStateAffix* roll;
     std::vector<RollValue> values;
 
     const std::string getRolledName() const;

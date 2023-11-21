@@ -13,12 +13,12 @@ AffixRollsViewer::~AffixRollsViewer()
     delete ui;
 }
 
-void AffixRollsViewer::initialize(CDataTableBase<PossibleAffix>* affixRollsDataTable)
+void AffixRollsViewer::initialize(CDataTableBase<RandomStateAffix>* affixRollsDataTable)
 {
     m_AffixRollsDataTable = affixRollsDataTable;
 
     ui->listWidget->clear();
-    for(const PossibleAffix& i: m_AffixRollsDataTable->getAll())
+    for(const RandomStateAffix& i: m_AffixRollsDataTable->getAll())
     {
         auto strAffixType = toString(i.affixType);
 
@@ -39,8 +39,8 @@ void AffixRollsViewer::initialize(CDataTableBase<PossibleAffix>* affixRollsDataT
 
 void AffixRollsViewer::on_listWidget_currentRowChanged(int currentRow)
 {
-
-    const PossibleAffix* ptr = &m_AffixRollsDataTable->getAll()[currentRow];
+    
+    const RandomStateAffix* ptr = &m_AffixRollsDataTable->getAll()[currentRow];
     if(ptr)
     {
         qDebug() << "Selected Roll: " << ptr << " = " << ptr->id << "; " << QString::fromStdString(ptr->name);

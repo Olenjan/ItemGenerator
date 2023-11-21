@@ -2,7 +2,7 @@
 #define AFFIXTAGSFILTER_H
 
 #include "AffixFilterInterface.h"
-#include "../AffixTag.h"
+#include "../../data/AffixTag.h"
 
 class AffixTagsFilter: public AffixFilterInterface
 {
@@ -48,7 +48,7 @@ public:
         Unknown ArrayFilterType (Exception):
             Throws exception
     */
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const override
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const override
     {
         if(m_ArrayFilterType == EArrayFilterType::ANY)
         {

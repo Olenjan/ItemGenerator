@@ -2,7 +2,7 @@
 #define AFFIXFILTERINTERFACE_H
 
 #include <stdint.h>
-#include "../AffixRoll.h"
+#include "../../data/AffixRoll.h"
 
 class AffixFilterInterface
 {
@@ -25,7 +25,7 @@ public:
 public:
     AffixFilterInterface() = default;
 
-    virtual bool acceptAffixRoll(const PossibleAffix& affixRoll) const = 0;
+    virtual bool acceptAffixRoll(const RandomStateAffix& affixRoll) const = 0;
 };
 
 
