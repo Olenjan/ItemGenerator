@@ -1,5 +1,10 @@
 # ItemGenerator
-item generator
+Generated item instances 
+
+## Databases
+	Foundation Database - Base foundational elements of the project
+ 	Instance Database   - unique instanced based on foundational elements, referring to foundational entries
+  	User Database       - database of users, login and refers to instance database elements
 
 Data layers
 
