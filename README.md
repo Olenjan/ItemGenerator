@@ -31,8 +31,53 @@ Generated item instances
 			created_at
 			last_activity
 			expiration_date
+		
 	Foundation database
+		//Base info tables
+		Modifier
+			modifier_id
+			modifier_name
+		rarity
+			rarity_id
+			rarity_name
+		item_base_slot
+			item_base_slot_id
+			item_base_slot_name
+		affix_type
+			affix_type_id
+			affix_type_name
+		tags
+			tag_id
+			tag_name
+		
+		//Rollable  information
+		item_base
+			item_base_id
+			item_base_slot_id
+			item_base_name
+			item_base_nametag
+		affix_constraints
+			affix_constraint_id
+			affix_constraint_name
+		affix
+			affix_id
+			affix_tier
+			affix_name
+			affix_nametag
+			affix_level
+			affix_constraint_id_list - Create another link-table
+			tag_id_list			     - Create another link-table
+			
 	Instance database
+		collapsed_items
+			item_id
+			item_name //collapsed item name = <one_prefix><item_base_name><one_suffix>
+			rarity_id
+			item_base_id
+			item_base_stats_nosql
+			item_affix_count
+			item_affixes_nosql
+
 
 Data layers
 
