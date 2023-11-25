@@ -139,5 +139,3 @@ Object
 Generation -> Object
 	AffixGenerator
 	ItemGenerator
-
-	
