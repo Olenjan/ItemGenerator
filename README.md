@@ -54,10 +54,19 @@
 				- language_code_id
 				- name (Strength, Dexterity, Maximum Life, ...) (in that specific language) (even default language for consistency)
 	
+	
+	
 		// General tags
 		property_tag (General grouping of a property)
 			- id
-			- name (physical, damage, life, defense, )
+			- name (physical, damage, life, defense, ...)
+		
+		content_type (What content there is)
+			- id
+			- name (name of the content)
+			
+	
+	
 	
 		// Character property
 		{
@@ -124,22 +133,22 @@
 			
 		// Item affix
 		{
-			item_affix_family
-				- id
-				- name (damage, life, ...)
-		
 			item_affix_type
 				- id 
 				- name ("prefix", "suffix", "implicit", "enchant", ...)
 		
 			item_affix_definition (What the affix is) (Index is a number form 0 to N, each index affects a different character property)
 				- id
-				- item_affix_family_id
 				- identifier_name 		("flat_physical_damage")
 				- name_template 		("Adds {0} - {1} to physical damage") (name in default language) ({x} is the index from 0 to index_count)
 				- description 			(Description of the affix)
-				- content_type_id		(Origin of the affix - where the affix is from, what type of content generates)
 				- index_count			(Number of indexes(values) generated for the affix)
+				
+			item_affix_definition_content_type (What affix can spawn where)
+				- id
+				- content_type_id
+				- item_affix_definition_id
+				
 				
 			//Affix-ItemClass				
 			item_affix_item_class (What item classes can the affix spawn for) (body, gloves)
@@ -155,17 +164,17 @@
 				- character_property_definition_id 	(What character property that index of the affix affects)
 				- value_type						(additive, multiplicative) 
 				
-			//Property				
+			//Tag			
 			item_affix_definition_property_tag (What property tags does the item affix have)
 				- id
 				- item_affix_definition_id
 				- property_tag_id
 			
-			//Exclusion			
+			//Exclusion (If an affix appears in a group, other affixes in that group cannot be rolled)
 			item_affix_exclusion_group (Group of affixes that cannot appear together)
 				- id
-				- identifier_name (physical_damage_conversion, stun_immunity, damage_type_negation) (convert phys to lighting + convert phys fire, cannot be stunned + increased stun threshold, Deal no physical + deal only physical, cannot attack + cannot cast spells )
-				- description (Why those cant appear together)
+				- identifier_name (self_exclusion, physical_damage_conversion, stun_immunity, damage_type_negation)
+				- description (Why those cant appear together) (no duplicates, convert phys to lighting + convert phys fire, cannot be stunned + increased stun threshold, Deal no physical + deal only physical, cannot attack + cannot cast spells )
 				
 			item_affix_definition_exclusion (What affix appears in an exclusion group)
 				- id 
