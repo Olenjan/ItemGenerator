@@ -37,6 +37,7 @@ Generated item instances
 		Modifier
 			modifier_id
 			modifier_name
+			modifier_description
 		rarity
 			rarity_id
 			rarity_name
@@ -139,3 +140,94 @@ Object
 Generation -> Object
 	AffixGenerator
 	ItemGenerator
+
+
+
+
+
+
+
+
+
+
+#//////////Maybe something like this//////////
+
+//Item layer
+enum class EItemClass
+{
+	NONE,
+	CONSUMABLE,
+	EQUIPMENT,
+	CONTAINER,
+	CRAFTING_ORB,
+	QUEST_ITEM
+};
+
+struct EItemType
+{
+	enum class EConsumableType
+	{
+		GENERIC = 0
+	};
+	
+	enum class EEquipmentType
+	{
+		GENERIC 	= 0,
+		BODY        = 1,
+		HANDS       = 2,
+		BELT        = 3,
+		RING        = 4,
+		AMULET      = 5,
+		WEAPON_1H   = 6,
+		WEAPON_2H   = 7,
+		OFFHAND     = 8,
+		HEAD        = 9,
+		LEGS        = 10,
+	};
+	
+	enum class EContainerType
+	{
+		GENERIC = 0
+	};
+	
+	enum class ECraftingOrbType
+	{
+		GENERIC = 0
+	};
+	
+	enum class EQuestItemType
+	{
+		GENERIC = 0
+	};
+};
+
+
+//Equipment layer
+
+//One of those for each implemented type ?
+
+EItemType::EEquipmentType::GENERIC
+
+//Mono or separated Weapon, armor types ?
+enum class EWeaponBaseType
+{
+//Weapon
+	SWORD_1H,
+	SWORD_2H,
+	
+	AXE_1H,
+	AXE_2H,
+	
+	MACE_1H,
+	MACE_2H,
+	
+	BOW
+};
+
+enum class EArmorType
+{
+	CLOTH,
+	LEATHER,
+	MAIL,
+	PLATE
+};
