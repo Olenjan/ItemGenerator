@@ -56,14 +56,16 @@
 	
 	
 	
-		// General tags
-		property_tag (General grouping of a property)
-			- id
-			- name (physical, damage, life, defense, ...)
-		
-		content_type (What content there is)
-			- id
-			- name (name of the content)
+		// General 
+		{
+			property_tag (General grouping of a property)
+				- id
+				- name (physical, damage, life, defense, ...)
+			
+			content_type (What content there is)
+				- id
+				- name (name of the content)
+		}
 			
 	
 	
@@ -96,14 +98,18 @@
 				- id
 				- name
 				
-			item_base
+			item_base ()
 				- id
 				- item_class_id
 				- name
 			
+			rarity_type (maybe enum instead)
+				- id
+				- name
+			
 			// item class properties - One table for each item_class
 			{
-				armor_properties
+				armor_base_properties (each armor base has their own properties)
 				- id
 				- item_base_id
 				- armor_type
@@ -112,24 +118,13 @@
 				- barrier
 			}
 			
-			item_requirements
+			item_base_requirements  (each base has a separate requirement)
 				- id
 				- item_base_id
 				- level_required
 				- str_required
 				- dex_required
 				- int_required
-				
-				
-				
-			rarity_type
-				- id
-				- name
-				
-			base_item
-				- id
-				- name
-		}
 			
 		// Item affix
 		{
