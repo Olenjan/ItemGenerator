@@ -1,216 +1,246 @@
-## Database
+### Description		
+User Database       - database of users, login and refers to instance database elements
+Foundation Database - Base foundational elements of the project
+Instance Database   - unique instanced based on foundational elements, referring to foundational entries
 
-	### Description		
-	User Database       - database of users, login and refers to instance database elements
-	Foundation Database - Base foundational elements of the project
-	Instance Database   - unique instanced based on foundational elements, referring to foundational entries
+### User database
+User database is for reference.
 
-	### User database
-	User database is for reference.
+users
+	- user_id
+	- username
+	- email
+	- password_hash
+	- password_salt
+	- created_at
+	- is_active
+	
+roles
+	- role_id
+	- role_name
+	- role_description
+	
+user_roles
+	- user_role_id
+	- user_id
+	- role_id
+	- assigned_at
+	
+user_sessions
+	- user_session_id
+	- user_id
+	- created_at
+	- last_activity
+	- expiration_date
 
-	users
-		- user_id
-		- username
-		- email
-		- password_hash
-		- password_salt
-		- created_at
-		- is_active
-		
-	roles
-		- role_id
-		- role_name
-		- role_description
-		
-	user_roles
-		- user_role_id
-		- user_id
-		- role_id
-		- assigned_at
-		
-	user_sessions
-		- user_session_id
-		- user_id
-		- created_at
-		- last_activity
-		- expiration_date
+### Foundation database		
 
-	### Foundation database		
+// Localization
+language_codes (Need to support many languages, UTF-8 supports all) (Should be used only for user-facing namings)
+	- id
+	- language_code (en, fr, de, ...)
+	- is_enabled (if language is supported)
+	- name (English, French, German, ...)
+	- alignment (left aligned or right aligned)
+	
+character_property_definition_name_translations (example for localization)
+		- id
+		- attribute_type_definition_id
+		- language_code_id
+		- name (Strength, Dexterity, Maximum Life, ...) (in that specific language) (even default language for consistency)
 
-	// Base info tables v2
-	{	
-		
-		// Localization
-		language_codes (Need to support many languages, UTF-8 supports all) (Should be used only for user-facing namings)
-			- id
-			- language_code (en, fr, de, ...)
-			- is_enabled (if language is supported)
-			- name (English, French, German, ...)
-			- alignment (left aligned or right aligned)
-			
-		character_property_definition_name_translations (example for localization)
-				- id
-				- attribute_type_definition_id
-				- language_code_id
-				- name (Strength, Dexterity, Maximum Life, ...) (in that specific language) (even default language for consistency)
-	
-	
-	
-		// General 
-		{
-			property_tag (General grouping of a property)
-				- id
-				- name (physical, damage, life, defense, ...)
-			
-			content_type (What content there is)
-				- id
-				- name (name of the content)
-		}
-			
-	
-	
-	
-		// Character property
-		{
-		
-			character_property_type (type of property)
-				- id
-				- name (static, variable, dynamic)
-				
-			character_property_definition (All character properties, even resources, be them current values like current_life, calculated values like max_life)
-				- id
-				- identifier_name 	(strength, dexterity, intelligence, min_life, current_life, max_life, base_life, movement_speed, min/max_resistance/physical_damage)
-				- name 				(Strength, Dexterity, ...) (Default language name)
-				- property_type_id
-				- min_limit 		(life cannot be < 0)
-				- max_limit 		(resistance cannot be > 90, NULL for none)
-				
-			character_property_property_tag (what property tags does the character property have )
-				- id
-				- property_tag_id
-		}
-		
-		--------
-		
-		// Base item stuff
-		{
-			item_class
-				- id
-				- name
-				
-			item_base ()
-				- id
-				- item_class_id
-				- name
-			
-			rarity_type (maybe enum instead)
-				- id
-				- name
-			
-			// item class properties - One table for each item_class
-			{
-				armor_base_properties (each armor base has their own properties)
-				- id
-				- item_base_id
-				- armor_type
-				- base_armor
-				- evasion
-				- barrier
-			}
-			
-			item_base_requirements  (each base has a separate requirement)
-				- id
-				- item_base_id
-				- level_required
-				- str_required
-				- dex_required
-				- int_required
-			
-		// Item affix
-		{
-			item_affix_type
-				- id 
-				- name ("prefix", "suffix", "implicit", "enchant", ...)
-		
-			item_affix_definition (What the affix is) (Index is a number form 0 to N, each index affects a different character property)
-				- id
-				- identifier_name 		("flat_physical_damage")
-				- name_template 		("Adds {0} - {1} to physical damage") (name in default language) ({x} is the index from 0 to index_count)
-				- description 			(Description of the affix)
-				- index_count			(Number of indexes(values) generated for the affix)
-				
-			item_affix_definition_content_type (What affix can spawn where)
-				- id
-				- content_type_id
-				- item_affix_definition_id
-				
-				
-			//Affix-ItemClass				
-			item_affix_item_class (What item classes can the affix spawn for) (body, gloves)
-				- id
-				- item_affix_definition_id
-				- item_class_id
 
-			//Affix-Character			
-			item_affix_definition_character_property (What character property does the index of the affix affect) (index_count of item_affix_definition entries per item_affix_family_id, one index can affect many character properties)
-				- id
-				- item_affix_definition_id
-				- value_index 						(index from 0 to (index_count-1))
-				- character_property_definition_id 	(What character property that index of the affix affects)
-				- value_type						(additive, multiplicative) 
-				
-			//Tag			
-			item_affix_definition_property_tag (What property tags does the item affix have)
-				- id
-				- item_affix_definition_id
-				- property_tag_id
-			
-			//Exclusion (If an affix appears in a group, other affixes in that group cannot be rolled)
-			item_affix_exclusion_group (Group of affixes that cannot appear together)
-				- id
-				- identifier_name (self_exclusion, physical_damage_conversion, stun_immunity, damage_type_negation)
-				- description (Why those cant appear together) (no duplicates, convert phys to lighting + convert phys fire, cannot be stunned + increased stun threshold, Deal no physical + deal only physical, cannot attack + cannot cast spells )
-				
-			item_affix_definition_exclusion (What affix appears in an exclusion group)
-				- id 
-				- item_affix_definition_id 
-				- exclusion_group_id          
-			
-			//Tiers				
-			item_affix_tier_definition (How many different levels of a specific affix definition we have)
-				- id 
-				- item_affix_definition_id
-				- tier 				(Higher = better)
-				- item_level_min 	(Minimum item level that this affix of that tier can appear on)
-				- item_level_max 	(Maximum item level that this affix of that tier can appear on)
-				
-			item_affix_tier_value (Defines a roll for an item affix tier) (index_count of item_affix_definition entries per tier, only one index for every index_count per tier)
-				- id
-				- item_affix_tier_definition_id
-				- value_index (index from 0 to (index_count-1))
-				- min_value
-				- max_value
-		}
+
+// General 
+{		
+	content_type (What content there is)
+		- id
+		- name (name of the content)
+}
+
+// Property definition
+{			
+	// Tags of property
+	property_tag (General grouping of a property)
+		- id
+		- name (physical, damage, life, defense, resource, ...)
 		
+	// What properties exist, It is implicit that a character has all properties
+	property_definition
+		- id
+		- identifier_name 	(strength, dexterity, intelligence, life, movement_speed, fire/cold/lightning_resistance, max_fire/cold/lightning_resistance, min/max_physical_damage, cannot_be_stunned, ...)
+		- name 				(Strength, Dexterity, ...) (Default language name)
+		- min_limit 		(Absolute minimum, life cannot be < 0)
+		- max_limit 		(Absolute maximum, resistance cannot be > 90, NULL for none)
 		
-		// Unique
-		{
-			unique_item
-				- id 
-				- item_base_id
-				- ...
-			
-			unique_requirement
-				- id
-				- unique_item_id
-				- ...
-			
-			unique_affix
-				- id
-				- unique_item_id
-				...
-		}
+	// List of property tags the property_definition has
+	property_definition_property_tag 
+		- id
+		- property_tag_id
+}
+	
+// Character class and its properties
+{
+	// What character classes there are
+	character_class
+		- id
+		- identifier_name 
+		- name
+		- ...
+		
+	// Base property values for different classes
+	character_class_base_property
+		- id
+		- character_class_id
+		- property_definition_id
+		- base_value
+	
+	// It is implicit that a character always has EVERY single property from property_definition
+}
+
+--------
+
+// Passives
+{
+
+}
+
+--------
+
+// Base item stuff
+{
+	item_class (body_armour, sword, wand, ...)
+		- id
+		- name
+		
+	item_base (ragged_leather_armour, fine_leather_armor, ...)
+		- id
+		- item_class_id
+		- name
+	
+	rarity_type_enum (maybe enum instead)
+		- NORMAL
+		- UNCOMMON
+		- RARE
+		- UNIQUE
+	
+	// item class properties - One table for each item_class
+	{
+		armor_base_properties (each armor base has their own properties)
+		- id
+		- item_base_id
+		- armor_type
+		- base_armor
+		- evasion
+		- barrier
 	}
+	
+	item_base_requirements  (each base has a separate requirement)
+		- id
+		- item_base_id
+		- level_required
+		- str_required
+		- dex_required
+		- int_required
+}
+	
+// Item affix
+{
+	item_affix_type_enum
+		- IMPLICIT
+		- PREFIX
+		- SUFFIX
+		- PREFIX
+		- ENCHANT
+
+	// Define what affixes exist
+	item_affix_definition  (Index is a number form 0 to N, each index affects a different character property)
+		- id
+		- identifier_name 		("flat_physical_damage")
+		- name_template 		("Adds {0} - {1} to physical damage") (name in default language) ({x} is the index from 0 to index_count)
+		- description 			(Description of the affix)
+		- index_count			(Number of indexes(values) generated for the affix)
+		- item_affix_type_enum  (What type of affix it is)
+		
+	// Where can an affix spawn
+	item_affix_definition_content_type (what content type)
+		- id
+		- content_type_id
+		- item_affix_definition_id
+		
+	// Where can an affix spawn ( what item class)
+	item_affix_item_class (body, gloves)
+		- id
+		- item_affix_definition_id
+		- item_class_id
+
+	// What does the affix affect ( What character property does the index of the affix affect)
+	item_affix_definition_character_property (index_count of item_affix_definition entries per item_affix_family_id, one index can affect many character properties)
+		- id
+		- item_affix_definition_id
+		- value_index 						(index from 0 to (index_count-1))
+		- character_property_definition_id 	(What character property that index of the affix affects)
+		- value_type						(additive, multiplicative) 
+		
+	// What tags does the affix have			
+	item_affix_definition_property_tag (What property tags does the item affix have)
+		- id
+		- item_affix_definition_id
+		- property_tag_id
+	
+	
+	//Exclusion
+	
+	// Define what exclusions groups there area (If an affix appears in a group, other affixes in that group cannot be rolled)
+	item_affix_exclusion_group (Group of affixes that cannot appear together)
+		- id
+		- identifier_name (self_exclusion, physical_damage_conversion, stun_immunity, damage_type_negation)
+		- description (Why those cant appear together) (no duplicates, convert phys to lighting + convert phys fire, cannot be stunned + increased stun threshold, Deal no physical + deal only physical, cannot attack + cannot cast spells )
+		
+	// Which affixes are in which exclusion group
+	item_affix_definition_exclusion (What affix appears in an exclusion group)
+		- id 
+		- item_affix_definition_id 
+		- exclusion_group_id          
+		
+		
+	//Tiers				
+	
+	// How many tiers does an affix have
+	item_affix_tier_definition (How many different levels of a specific affix definition we have)
+		- id 
+		- item_affix_definition_id
+		- tier 				(Higher = better)
+		- item_level_min 	(Minimum item level that this affix of that tier can appear on)
+		- item_level_max 	(Maximum item level that this affix of that tier can appear on)
+		
+	// What are the values of a given affix's tier
+	item_affix_tier_value (Defines a roll for an item affix tier) (index_count of item_affix_definition entries per tier, only one index for every index_count per tier)
+		- id
+		- item_affix_tier_definition_id
+		- value_index (index from 0 to (index_count-1))
+		- min_value
+		- max_value
+}
+
+// Unique item
+{
+	unique_item
+		- id 
+		- item_base_id
+		- ...
+	
+	unique_requirement
+		- id
+		- unique_item_id
+		- ...
+	
+	unique_affix
+		- id
+		- unique_item_id
+		...
+}
+
 
 
 
