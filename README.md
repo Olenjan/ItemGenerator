@@ -22,20 +22,22 @@ Character class - Template that defines a set of base properties for a Player ch
 Character property - A numeric value or flag that is one variable of a 'Character's' state
 Property tag - Label that categorizes the type of a 'property'
 Effect - Temporary or permanent modification to an 'instance state' or 'character property'
-Ground effect - Temporary modification to a 'instance state'
-Status effect - Temporary modification to a 'character property'
+	Status effect - Temporary or permanent modification to a 'character property'
+	Ground effect - Temporary modification to a 'instance state'
 Modifier - additive or multiplicative value that changes any property or properties
+Target - Entity that will receive the effects of an action
 
 //
 Player character - 'Character' controlled by a 'player'
 NPC - 'Character' controlled by an AI that is not hostile towards the 'player'
 Enemy - 'Character' controlled by an AI that is hostile towards the 'player'
 
-// Action 
-Skill - A designed 'action' or a 'modifier' granted to a 'character'
-Active Skill - An 'action' granted to a 'character'
-Passive Skill - A 'modifier' granted to a 'character'
-Resource - A limited pool of a specific energy that's used to perform certain 'Active Skills'
+Damage Type - Classification of damage(Physical, fire, cold, lightning, chaos)
+
+Life - 'Character' property representing health that when reduced to zero causes death
+Damage - Negative modification to 'Life'
+Heal - Positive modification to 'Life'
+
 
 // Item
 Item - A general term for all objects that can be picked up, carried, dropped 
@@ -48,13 +50,37 @@ Equipment slot - A designated position where an single piece of 'equipment' can 
 Equipment type - a specific type of 'equipment' that can only be equipped into a certain 'equipment slot'
 Equipment properties - A unique set of numeric values or flags for a certain 'equipment type' that affects 'Character properties'
 Affix - 'Modifier' that can be added to an item that changes either 'character property' or 'equipment property'
-Weapon - An Equipment in a specific 'equipment slot' that is used for specific 'Actions' and interacting with 'Enemies'
+Weapon - Equipment type that provides combat properties and enables 'Attack' skills
 
-//
-Attack - A damaging 'Active skill' directly damaging an 'Enemy' with a 'weapon' that uses the 'weapon's' 'equipment properties' as the source of the damage. Have a chance to miss. Can cause 'Effects'. Only usable with certain 'weapon' types.
-Spell - A damaging 'Active skill' indirectly damaging an 'Enemy' with a 'weapon' that does NOT use 'weapon's' 'equipment properties' as the source of the damage. Cannot miss. Is an 'Effect' and can cause 'Effects'
+// Combat basics
+Skill - A designed 'action' or a 'modifier' granted to a 'character'
+Active Skill - An 'action' granted to a 'character'
+Passive Skill - A 'modifier' granted to a 'character'
+Resource - Character property that limits the use of specific skills
+Area of effect - Region in an 'instance' where an 'action applies' its 'effects' to all valid 'targets'. Either in a radius or a specific shape.
+Duration - Time period that an 'effect' remains active
+Cooldown - Time period that must pass after using a 'skill' before it can be used again
+Projectile - Moving 'entity' created by an 'Attack' or 'Spell' that deals damage and/or carries and applies 'effects' when either reacing its 'target' or another condition.
+effect
+
+
+// Combat Advanced
+Attack - An 'Active skill', that is either melee or ranged that uses the 'weapon's' 'equipment properties' for its behavior . Have a chance to miss. Can cause 'Effects'. Only usable with certain 'weapon' types.
+Melee Attack - 'Attack' that requires direct 'weapon' contact with the 'target'
+Ranged Attack - 'Attack' that can be performed at a distance and does not requires direct 'weapon' contact with the 'target'
+Attack Speed - Rate at which 'Attacks' can be performed
+
+Spell - An 'Active skill' that is ranged or close range that does NOT use 'weapon's' 'equipment properties' for its behavior. Cannot miss. Is an 'Effect' and can cause 'Effects'
+Cast Time - Duration required to perform a 'Spell' before applying its 'effect'
+
+Hit - Successful application of 'damage' from an 'Attack' or 'Spell' to a target
 Buff - A Positive 'Status effect'
 Debuff - A Negative 'Status effect'
+Regen - Continuously 'healing' 'buff'
+Degen - Continuously 'damaging' 'debuff'
+Aura - Continuous 'Status effect' that applies to all valid targets within an 'Area of effect' around its source
+
+
 
 ## Databases
 
