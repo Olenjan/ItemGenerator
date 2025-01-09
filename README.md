@@ -1,7 +1,68 @@
-### Description		
+# Description		
+
+## General definitions
+
+// Foundation
+World - Environment that an 'Entity' exists and moves around in, where all 'actions' take place
+Instance - A unique, isolated copy of a 'world'
+Instance state - Current status of an 'instance'
+Entity - Any fundemental object in the 'world' that can be interacted with
+Entity state - Current status of an 'entity'
+Action - Any operation that can be performed by an entity that affects a 'Instance state' or an "Entity state"
+Content - A Designed gameplay element that can be interacted with or experienced
+
+// User
+Account - Collection of characters, stash and persistent data owned by a user
+Player - User currently active in an 'instance'
+
+// 
+Prop - A static 'entity' that cannot perform 'actions' but can be interacted with
+Character - A dynamic 'entity' controlled by a player or an AI
+Character class - Template that defines a set of base properties for a Player character
+Character property - A numeric value or flag that is one variable of a 'Character's' state
+Property tag - Label that categorizes the type of a 'property'
+Effect - Temporary or permanent modification to an 'instance state' or 'character property'
+Ground effect - Temporary modification to a 'instance state'
+Status effect - Temporary modification to a 'character property'
+Modifier - additive or multiplicative value that changes any property or properties
+
+//
+Player character - 'Character' controlled by a 'player'
+NPC - 'Character' controlled by an AI that is not hostile towards the 'player'
+Enemy - 'Character' controlled by an AI that is hostile towards the 'player'
+
+// Action 
+Skill - A designed 'action' or a 'modifier' granted to a 'character'
+Active Skill - An 'action' granted to a 'character'
+Passive Skill - A 'modifier' granted to a 'character'
+Resource - A limited pool of a specific energy that's used to perform certain 'Active Skills'
+
+// Item
+Item - A general term for all objects that can be picked up, carried, dropped 
+Rarity - Item classification that determines how uncommon and how powerful it can be
+Loot - Items that are obtained from defeated monsters, from containers or as a reward
+Inventory - Container for 'items' currently being carried by a 'Character'
+Stash - Container for 'items' permanently stored by a 'character' or 'account'
+Equipment - Item that can be equipped by a 'character' that affects its 'Entity State'
+Equipment slot - A designated position where an single piece of 'equipment' can be put on an 'Entity' that affects its properties
+Equipment type - a specific type of 'equipment' that can only be equipped into a certain 'equipment slot'
+Equipment properties - A unique set of numeric values or flags for a certain 'equipment type' that affects 'Character properties'
+Affix - 'Modifier' that can be added to an item that changes either 'character property' or 'equipment property'
+Weapon - An Equipment in a specific 'equipment slot' that is used for specific 'Actions' and interacting with 'Enemies'
+
+//
+Attack - A damaging 'Active skill' directly damaging an 'Enemy' with a 'weapon' that uses the 'weapon's' 'equipment properties' as the source of the damage. Have a chance to miss. Can cause 'Effects'. Only usable with certain 'weapon' types.
+Spell - A damaging 'Active skill' indirectly damaging an 'Enemy' with a 'weapon' that does NOT use 'weapon's' 'equipment properties' as the source of the damage. Cannot miss. Is an 'Effect' and can cause 'Effects'
+Buff - A Positive 'Status effect'
+Debuff - A Negative 'Status effect'
+
+## Databases
+
 User Database       - database of users, login and refers to instance database elements
-Foundation Database - Base foundational elements of the project
-Instance Database   - unique instanced based on foundational elements, referring to foundational entries
+Foundation Database - Foundational database defining core data and rules
+Instance Database   - Instances generated based on foundational database
+
+
 
 ### User database
 User database is for reference.
@@ -53,18 +114,24 @@ character_property_definition_name_translations (example for localization)
 
 // General 
 {		
-	content_type (What content there is)
-		- id
-		- name (name of the content)
-}
-
-// Property definition
-{			
-	// Tags of property
+	rarity_type_enum (maybe enum instead)
+		- NORMAL
+		- UNCOMMON
+		- RARE
+		- UNIQUE
+		
 	property_tag (General grouping of a property)
 		- id
 		- name (physical, damage, life, defense, resource, ...)
 		
+	content_type (What content there is)
+		- id
+		- name (name of the content)
+		
+}
+
+// Property definition
+{		
 	// What properties exist, It is implicit that a character has all properties
 	property_definition
 		- id
@@ -106,43 +173,66 @@ character_property_definition_name_translations (example for localization)
 }
 
 --------
-
-// Base item stuff
+// Item
 {
-	item_class (body_armour, sword, wand, ...)
+	item_type 
+		- id
+		- name (quest, equipment, crafting_reagent = orb, gold, instance_key = map) 
+		
+	/*
+	Item - A General term for all items that can drop, picked up and managed in the inventory
+	Quest - Item that is part of a quest and cannot be traded. (exchangeable, consumable, sellable)
+	Equipment - Item that can be equipped by a character (equippable)
+	Crafting Reagent - Item that can be consumed and applied to an item (stackable, usable on an item)
+	Gold - Item as a numeric value allocating used for basic services.
+	Instance key - Item for managing instances to an area.	
+	*/
+}
+
+// Equipment - Tables for equipment
+{
+	// What class of equipments there are (body_armour, 1h_sword, 2h_sword, wand)
+	equipment_class
 		- id
 		- name
 		
-	item_base (ragged_leather_armour, fine_leather_armor, ...)
+	// 
+	equipment_base (ragged_leather_armour, fine_leather_armor, ..., jewel)
 		- id
-		- item_class_id
+		- equipment_class_id
 		- name
 	
-	rarity_type_enum (maybe enum instead)
-		- NORMAL
-		- UNCOMMON
-		- RARE
-		- UNIQUE
-	
-	// item class properties - One table for each item_class
+	// equipment class properties - One table for each equipment_class
 	{
-		armor_base_properties (each armor base has their own properties)
+		armor_base_properties
 		- id
-		- item_base_id
+		- equipment_base_id
 		- armor_type
 		- base_armor
 		- evasion
 		- barrier
+		
+		// One for each equipment_base
+		*_base_properties 
 	}
 	
-	item_base_requirements  (each base has a separate requirement)
+	// Each base has separate requirements
+	equipment_base_requirements
 		- id
-		- item_base_id
+		- equipment_base_id
 		- level_required
 		- str_required
 		- dex_required
 		- int_required
 }
+// Orb - Tables for orbs
+{
+	...
+}
+
+// 
+
+----------
 	
 // Item affix
 {
@@ -169,10 +259,10 @@ character_property_definition_name_translations (example for localization)
 		- item_affix_definition_id
 		
 	// Where can an affix spawn ( what item class)
-	item_affix_item_class (body, gloves)
+	item_affix_equipment_class (body, gloves)
 		- id
 		- item_affix_definition_id
-		- item_class_id
+		- equipment_class_id
 
 	// What does the affix affect ( What character property does the index of the affix affect)
 	item_affix_definition_character_property (index_count of item_affix_definition entries per item_affix_family_id, one index can affect many character properties)
@@ -227,7 +317,7 @@ character_property_definition_name_translations (example for localization)
 {
 	unique_item
 		- id 
-		- item_base_id
+		- equipment_base_id
 		- ...
 	
 	unique_requirement
@@ -246,65 +336,6 @@ character_property_definition_name_translations (example for localization)
 
 
 ///// OLD	
-
-
-	// Base info tables
-	{
-		Modifier
-			- modifier_id
-			- modifier_name
-			- modifier_description
-			
-		rarity
-			- rarity_id
-			- rarity_name
-			
-		item_base_slot
-			- item_base_slot_id
-			- item_base_slot_name
-			
-		affix_type
-			- affix_type_id
-			- affix_type_name
-			
-		tags
-			- tag_id
-			- tag_name
-	}
-
-	// Rollable  information
-	{
-		item_base
-			- item_base_id
-			- item_base_slot_id
-			- item_base_name
-			- item_base_nametag
-		affix_constraints
-			- affix_constraint_id
-			- affix_constraint_name
-		affix
-			- affix_id
-			- affix_tier
-			- affix_name
-			- affix_nametag
-			- affix_level
-			- affix_constraint_id_list - Create another link-table
-			- tag_id_list			   - Create another link-table
-	}
-	
-	### Instance database
-	{
-		collapsed_items
-			- item_id
-			- item_name //collapsed item name = <one_prefix><item_base_name><one_suffix>
-			- rarity_id
-			- item_base_id
-			- item_base_stats_nosql
-			- item_affix_count
-			- item_affixes_nosql
-	}
-
-
 
 ## Data layers
 ? What was that for ?
