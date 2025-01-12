@@ -57,50 +57,41 @@ Instance - A unique, isolated copy of an 'Environment'
 
 
 
-## Gameplay Layer
+## Gameplay hierarchy
 
 	//L0 - Technical layer
-	... 
+	Art				- How something manifests itself
+	Transformation 	- What something occupies
+	Physics			- What something is governed by
+	
 	//L1 - Fundemental layer
-	Fundemental - Everything that exists or happens in gameplay	- Everything defined as fundemental exists
-	Property - Everything that qualifies a Fundamental			- All fundementals have properties, Does not itself have properties
-	Environment - Everything that is there						- Environments are fundemental, exists, have properties
-	Action - Everything that is done							- Actions are fundemental, they happen, have properties
-	Character - Everything that are doing						- Characters are fundemental, exist, have properties
-	Item - Everything that is had								- Items are fundemental, exist, have properties
+	Fundemental 	- Everything that exists or happens in gameplay	- Everything defined as fundemental exists
+	Property 		- Everything that qualifies a Fundamental		- All fundementals have properties, Does not itself have properties
+	Environment 	- Everything that is there						- Environments are fundemental, exists, have properties
+	Action 			- Everything that is done						- Actions are fundemental, they happen, have properties
+	Character 		- Everything that are doing						- Characters are fundemental, exist, have properties
+	Item 			- Everything that is had						- Items are fundemental, exist, have properties
 	
 	//L2 - Base layer
-	Modifier - Everything that passively changes 'property(ies)'
-	Effect - Everything that actively changes 'property(ies)'
+	Modifier 		- Everything that passively changes 'property(ies)'
+	Effect 			- Everything that actively changes 'property(ies)'
 	
-	Skill - Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)' - Character fundemental related nvironment or item related action
-	Basic Action - Any 'Action' that is not a 'Skill'
+	Skill 			- Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)' - Character fundemental related nvironment or item related action
+	Basic Action	- Any 'Action' that is not a 'Skill'
 	
 	//L3 - Advanced layer
 	
 	
 	
 	//
-	Character - Character progression 
-	Enemy - Enemy progression (Difficulty)
-	
+	Movement - Basic action
+	Player Character - Player progression ?
+	Enemy Character - Enemy Difficulty ?
 	Inventory/Equipment - Character + Item
-	Movement
+	Combat - Player Character + Enemy Character + Equipment + Skill
 	
-	Movement - How character/enemy move in space
-	
-	
-	
-	
-	
-	
-	
-	Movement - (Framework)
-	Combat - (Framework level 2 - Built on 'Character' , 'Movement' and 'Item system')
-	Difficulty - (Framework Level 2 - )
-	
-	Encounter - (level 3 - Based on Combat)
-	Objective - (level 3 - Based on Combat)
+	Encounter - Designed Application of combat
+	Objective - Designed a series of encounters resulting in a reward
 	*/
 	
 	
