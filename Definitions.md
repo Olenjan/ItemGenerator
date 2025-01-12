@@ -1,102 +1,127 @@
 # definitions
 
-## Fundementals
+## Basic definitions
 
-### User
-Account - A persistent collection of data and privileges with unique login information
-User - A logged in 'account' interacting with system-level services 
+	### User
+	Account - A persistent collection of data and privileges with unique login information
+	User 	- A logged in 'account' interacting with system-level services 
 
-### Game
-Game - An interactive environment with defined rules, states, objectives
-Player - A 'User' who interacts with the 'game'
-Game client - Software running on 'user(s)' device that the 'Player' is using to interact with the 'game'
-Game server - Authoritative software system defining and controlling the 'game(s)' state, running on dedicated hardware or cloud infrastructure
+	### Game
+	Game 		- An interactive environment with defined rules, states, objectives
+	Player 		- A 'User' who interacts with the 'game'
+	AI			- An Artificial intelligence who makes complex decision and interacts with the 'game'
+	Game client - Software running on 'user(s)' device that the 'Player' is using to interact with the 'game'
+	Game server	- Authoritative software system defining and controlling the 'game(s)' state, running on dedicated hardware or cloud infrastructure
 
-### Game basics
-Entity - Anything that exists as a distinct, independent, or self-contained unit. Physical or abstract
-Position - 3D Spatial coordinate of an 'Entity'
-State - The complete set of variable values/attributes/properties that describe an 'entity' at a given time. All 'entity(ies)' have 'Position'
-Scene - A spatiotemporal arrangement of 'entity(ies)' and their relationships at a given time in euclidean space
-Entity Behavior - The temporal evolution of an 'entity(s)' state and 'Action(s)' performed by it within a scene
+	### Engine
+	Entity 				- A Unique identifier representing a distinct, independent, or self-contained unit.
+	Entity component	- A single piece of data that describes one aspect of an 'entity'
+	Entity system 		- A single logic module that describes how 'entity(ies)' with a set of 'Components' are processed
+	Transformation 		- A specific Position, , rotation scale of an 'Entity'
+	Scene 				- An arrangement of 'entity(ies)', their 'transformation(s)' and their relationships
+	Art 				- A single basic piece of engine resource: texture, mesh, animation or sound
+	Asset				- A single complex piece of engine resource: Model, hitbox, Material, VFX, Entity behavior, ...
+	Template Entity		- A complex 'Entity', its 'Component(s)' and a set of 'Asset(s)'. Is an itself an 'Asset'
 
-### Gameplay
-Game/Gameplay/core system - A set of interacting rules and behaviors that defined a specific part of a 'game'
-Mechanic - A functional component of a 'game system'
-Gameplay - Emergent patterns of interaction between a 'player' and a set of 'game system(s)'
-Content - Deliberately designed experience delivered through 'game system(s)'
+	### Core engine systems
+	Graphics		- A visual representation 'entity(ies)'
+	Audio			- An auditory representation 'entity(ies)'
+	Physics 		- A set of rules governing physical 'Entity(ies)' and how they move, interact with each other through forces and collisions
+	Entity Behavior - A Scripted behavior of an 'Entity'
 
+	### Gameplay
+	Gameplay system - A set of interacting rules that defined a specific part of a 'game'
+	Mechanic - A functional component of a 'game system'
+	Gameplay - Emergent patterns of interaction between a 'player' and a set of 'game system(s)'
+	Content - Deliberately designed experience delivered through 'game system(s)'
 
+## Game basics
 
-## Scene
+	Surface 	- Immutable structure 'Entity' within a 'scene' that has a physical boundary and visual representation.
+	Playspace 	- The total volume within 'scene' enclosed by 'surface(s)' where gameplay can occur
 
-### Space
-Surface - Immutable structure within a 'scene' that has a physical boundary and visual representation.
-Playspace - The total volume within 'scene' enclosed by 'surface(s)' where gameplay can occur
+	Object 			- A non-abstract 'Entity', with physical form, within a 'playspace' that cannot exit the 'playspace'. Is not a 'surface'
+	Prop 			- An 'object' within 'playspace' that enhances visual detail and ambiance. Can have basic 'Entity behavior'
+	Destructible 	- A temporary 'prop' that can be removed from the 'playspace' through interaction	
+	Actor			- An autonomous 'Object' that has controlled 'Entity behavior'
 
-### Object
-Object - A non-abstract 'entity' within a 'playspace' that cannot exit the 'playspace'. Is not a 'surface'
-
-### Static object
-Prop - An 'object' within 'playspace' that enhances visual detail and ambiance. Can have basic 'Entity behavior'
-Destructible - A temporary 'prop' that can be removed from the 'playspace' through interaction
-
-### Dynamic objects
-Actor - An autonomous 'object' that has controlled 'Entity behavior' either by a 'player' or an 'AI'
-Action - A single instance of doing something by an 'Actor'
-Action speed - base 'property' that defines a rate at which 'Action(s)' can be performed.	
-
-### Area
-Tileset - A collection of reusable 'surface(s)' and 'prop(s)' designed to be used together to construct consistent 'playspace'
-Layout - A set of instructions defining how a 'tileset' is arranged. Either fixed, randomly or semi-random
-Area - A 'playspace' built from a set of possible 'tileset(s)' and 'layout(s)'
-Zone - A collection of connected 'Area(s)' sharing a progressing theme
-World - A collection of interconnected 'zone(s)'
-
-Environment - A specific instantiation of an 'Area' using one selected 'Layout' and 'Tileset' from its possible sets
-Instance - A unique, isolated copy of an 'Environment'
+	Tileset - A collection of reusable 'surface(s)' and 'prop(s)' designed to be used together to construct consistent 'playspace'
+	Layout	- A set of instructions defining how a 'tileset' is arranged. Either fixed, randomly or semi-random
+	Area 	- A 'playspace' built from a set of possible 'tileset(s)' and 'layout(s)'
+	Zone 	- A collection of connected 'Area(s)' sharing a progressing theme
+	World 	- A collection of interconnected 'zone(s)'
 
 
-
-## Gameplay hierarchy
-
+## Gameplay conceptual axioms
 	//L0 - Technical layer
-	Art				- How something manifests itself
-	Transformation 	- What something occupies
-	Physics			- What something is governed by
-	
+	Asset			- How Everything manifests itself
+	Transformation 	- What Everything occupies
+	Physics			- What Everything is governed by
+
 	//L1 - Fundemental layer
-	Fundemental 	- Everything that exists or happens in gameplay	- Everything defined as fundemental exists
-	Property 		- Everything that qualifies a Fundamental		- All fundementals have properties, Does not itself have properties
+	Property 		- Everything that qualifies
 	Environment 	- Everything that is there						- Environments are fundemental, exists, have properties
-	Action 			- Everything that is done						- Actions are fundemental, they happen, have properties
 	Character 		- Everything that are doing						- Characters are fundemental, exist, have properties
 	Item 			- Everything that is had						- Items are fundemental, exist, have properties
+	Action 			- Everything that is done						- Actions are fundemental, they happen, have properties
+
+## Gameplay layers
+
+	### Fundemental layer
+		Fundamental	- A single instance of either the "Environment", a "Character", an "Action" or an "Item"
+		Property 	- A numeric value or a flag that qualifies one aspect of a 'Fundamental'
+		Environment - A specific instantiation of an 'Area' using one selected 'Layout' and 'Tileset' from its possible sets
+		Character 	- An 'Actor' controlled by a 'Player' or an 'AI'
+		Item 		- An 'Object' that can owned by a 'Character'
+		Action 		- A single 'Entity behavior' of an 'Actor'
+		
+
+	### Base layer
+		Player character	- A 'Character' controlled by a 'player'
+		Self 				- A reference to the acting 'Player Character'
+		NPC 				- A 'Character' that may be controlled by an 'AI' that is friendly towards the 'player'
+		Enemy 				- A 'Character' that may be controlled by an 'AI' that is hostile towards the 'player'
+		
+		Power 				- Overall effectiveness of a 'Character'
+		
+		Modifier	- Additive or multiplicative numberical value that passively changes 'property(ies)'
+		Effect 		- Additive or multiplicative numberical value that actively changes 'property(ies)'
+
+		Skill 			- Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)'
+		Basic Action	- Any 'Action' that is not a 'Skill'
+
+	### Gameplay base systems layer 
 	
-	//L2 - Base layer
-	Modifier 		- Everything that passively changes 'property(ies)'
-	Effect 			- Everything that actively changes 'property(ies)'
+		#### Environment
+			Dungeon generation system - How 'Environment(s)' are generated
+			
+		#### Character
+			Character class 	- What 'character' classes there are and what defined their 'Power'
+			Player progression	- Where and how do 'Player character(s)' get their 'Power'
+			Enemy progression 	- Where and how do 'Enemy(s)' get their 'Power'
+			
+		#### Items
+			Item system			- What items exist
+			Loot System			- How Items are generated
+			Inventory system	- How items are stored/managed by 'Player(s)'
+			Equipment system 	- How Items are worn/used by 'Characters'
+			Crafting system		- How items are created by 'Player(s)' in a semi-deterministic way
+			
+		#### Action
+			Movement system - How 'Character(s)' move in the 'Environment'
+			Skill system 	- What 'Skill(s)' there are 
+			Combat	system 	- Interaction between 'Player character(s)' and 'Enemy(ies)'
+			
+	### Gameplay advanced systems layer
+		Activity 			- 
+		Encounter  			- 
+		
+...
+
+## Gameplay Advanced layer definitions
+...
 	
-	Skill 			- Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)' - Character fundemental related nvironment or item related action
-	Basic Action	- Any 'Action' that is not a 'Skill'
-	
-	//L3 - Advanced layer
-	
-	
-	
-	//
-	Movement - Basic action
-	Player Character - Player progression ?
-	Enemy Character - Enemy Difficulty ?
-	Inventory/Equipment - Character + Item
-	Combat - Player Character + Enemy Character + Equipment + Skill
-	
-	Encounter - Designed Application of combat
-	Objective - Designed a series of encounters resulting in a reward
-	*/
-	
-	
-	
-	
+## Gameplay definitions (Old)
 
 	### Base definitions
 	//
