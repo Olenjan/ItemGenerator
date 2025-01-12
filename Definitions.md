@@ -17,14 +17,13 @@ Entity - Anything that exists as a distinct, independent, or self-contained unit
 Position - 3D Spatial coordinate of an 'Entity'
 State - The complete set of variable values/attributes/properties that describe an 'entity' at a given time. All 'entity(ies)' have 'Position'
 Scene - A spatiotemporal arrangement of 'entity(ies)' and their relationships at a given time in euclidean space
-Behavior - The pattern of Actions performed and state changes experienced by an Entity over time within a Scene
-Behavior - The temporal evolution of an 'entity(s)' state and 'Action(s)' performed by it within a scene
+Entity Behavior - The temporal evolution of an 'entity(s)' state and 'Action(s)' performed by it within a scene
 
 ### Gameplay
-Game/Gameplay/core system - A set of rules, processes objectives that controls how a specific part of a 'game' works.
+Game/Gameplay/core system - A set of interacting rules and behaviors that defined a specific part of a 'game'
 Mechanic - A functional component of a 'game system'
 Gameplay - Emergent patterns of interaction between a 'player' and a set of 'game system(s)'
-Content - Deliberately designed experience delivered through 'game systems'
+Content - Deliberately designed experience delivered through 'game system(s)'
 
 
 
@@ -35,15 +34,15 @@ Surface - Immutable structure within a 'scene' that has a physical boundary and 
 Playspace - The total volume within 'scene' enclosed by 'surface(s)' where gameplay can occur
 
 ### Object
-Object - A non-abstract 'entity' within a 'playspace' that cannot exist the 'playspace' within a scene. Is not a 'surface'
+Object - A non-abstract 'entity' within a 'playspace' that cannot exit the 'playspace'. Is not a 'surface'
 
 ### Static object
-Prop - An 'object' within 'playspace' that enhances visual detail and ambiance. Can have basic 'behavior'
+Prop - An 'object' within 'playspace' that enhances visual detail and ambiance. Can have basic 'Entity behavior'
 Destructible - A temporary 'prop' that can be removed from the 'playspace' through interaction
 
 ### Dynamic objects
-Actor - An autonomous 'object' that has controlled 'behavior' either by a 'player' or an 'AI'
-Action - Any operation that can be performed by an 'Actor'
+Actor - An autonomous 'object' that has controlled 'Entity behavior' either by a 'player' or an 'AI'
+Action - A single instance of doing something by an 'Actor'
 Action speed - base 'property' that defines a rate at which 'Action(s)' can be performed.	
 
 ### Area
@@ -60,12 +59,63 @@ Instance - A unique, isolated copy of an 'Environment'
 
 ## Gameplay Layer
 
+	//L0 - Technical layer
+	... 
+	//L1 - Fundemental layer
+	Fundemental - Everything that exists or happens in gameplay	- Everything defined as fundemental exists
+	Property - Everything that qualifies a Fundamental			- All fundementals have properties, Does not itself have properties
+	Environment - Everything that is there						- Environments are fundemental, exists, have properties
+	Action - Everything that is done							- Actions are fundemental, they happen, have properties
+	Character - Everything that are doing						- Characters are fundemental, exist, have properties
+	Item - Everything that is had								- Items are fundemental, exist, have properties
+	
+	//L2 - Base layer
+	Modifier - Everything that passively changes 'property(ies)'
+	Effect - Everything that actively changes 'property(ies)'
+	
+	Skill - Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)' - Character fundemental related nvironment or item related action
+	Basic Action - Any 'Action' that is not a 'Skill'
+	
+	//L3 - Advanced layer
+	
+	
+	
+	//
+	Character - Character progression 
+	Enemy - Enemy progression (Difficulty)
+	
+	Inventory/Equipment - Character + Item
+	Movement
+	
+	Movement - How character/enemy move in space
+	
+	
+	
+	
+	
+	
+	
+	Movement - (Framework)
+	Combat - (Framework level 2 - Built on 'Character' , 'Movement' and 'Item system')
+	Difficulty - (Framework Level 2 - )
+	
+	Encounter - (level 3 - Based on Combat)
+	Objective - (level 3 - Based on Combat)
+	*/
+	
+	
+	
+	
+
 	### Base definitions
+	//
 	Property - A numeric value or flag that is one variable of a state for a 'mechanic' or a set of 'mechanic(s)' across 'game system(s)'
 	Property tag - Label that categorizes the type of a 'property'
 	Modifier - additive or multiplicative value that changes one or more 'property(ies)'
+	
 	Character - An 'Actor' controlled by a player or an AI
 	Progression point - A value that can be spent to increase a permanently change 'Character(s)' 'Property(ies)'
+	
 	Item - An 'Object' or an 'Entity' that can be picked up, carried, dropped and possibly used by a 'Character'. Is of certain 'Rarity'
 	Equipment - An 'Inventory item' that can be worn or wielded by a 'Character' to provide benefits
 
@@ -98,14 +148,16 @@ Instance - A unique, isolated copy of an 'Environment'
 
 
 
-	### Core Systems - Separate interacting modules (Data based)
-	* Character system 	- Character data and progression (Base)
-	* Movement system 	- Movement within a world		 (Base)
-	* Item system  		- Items that a character can equip (Derived level 1 - uses Character)
-	* Combat system		- How Character interacts with hostile characters (Derived level 1 - uses Character + Item and Movement)
+	### Core Systems - Separate interacting modules (Data + Logic)
+	* Property system   - All 'things' have a property 		(Foundation)
+	* Character system 	- Character data and progression 	(Framework)
+	* Movement system 	- Movement within a world		 	(Framework)
+	* Item system  		- Items that a character can equip	(level 1 - Built on 'Character system')
+	* Combat system		- How 'Character  with hostile characters (level 2 - Built on 'Character' , 'Movement' and 'Item system')
+	* Difficulty system - How hard is the  Combat			(Level 3 - )
 	
-	* Objective system 	- What to do (Derived level 2 - Combat)
-	* Encounter systems -  What to do (Derived level 2 - Combat)
+	* Objective system 	- What to do (level 3 - Based on Combat)
+	* Encounter systems -  What to do (level 3 - Based on Combat)
 	
 	... Where is 'reward'
 	
