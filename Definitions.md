@@ -27,7 +27,7 @@
 	Graphics		- A visual representation 'entity(ies)'
 	Audio			- An auditory representation 'entity(ies)'
 	Physics 		- A set of rules governing physical 'Entity(ies)' and how they move, interact with each other through forces and collisions
-	Entity Behavior - A Scripted behavior of an 'Entity'
+	Entity Behavior - A Scripted or controlled behavior of an 'Entity'
 
 	### Gameplay
 	Gameplay system - A set of interacting rules that defined a specific part of a 'game'
@@ -41,7 +41,7 @@
 	Playspace 	- The total volume within 'scene' enclosed by 'surface(s)' where gameplay can occur
 
 	Object 			- A non-abstract 'Entity', with physical form, within a 'playspace' that cannot exit the 'playspace'. Is not a 'surface'
-	Prop 			- An 'object' within 'playspace' that enhances visual detail and ambiance. Can have basic 'Entity behavior'
+	Prop 			- An 'object' within 'playspace' that enhances visual detail and ambiance. May have basic scripted 'Entity behavior'
 	Destructible 	- A temporary 'prop' that can be removed from the 'playspace' through interaction	
 	Actor			- An autonomous 'Object' that has controlled 'Entity behavior'
 
@@ -58,45 +58,64 @@
 	Transformation 	- What Everything occupies
 	Physics			- What Everything is governed by
 
-	//L1 - Fundemental layer
+	//L1 - Fundamental layer
 	Property 		- Everything that qualifies
-	Environment 	- Everything that is there						- Environments are fundemental, exists, have properties
-	Character 		- Everything that are doing						- Characters are fundemental, exist, have properties
-	Item 			- Everything that is had						- Items are fundemental, exist, have properties
-	Action 			- Everything that is done						- Actions are fundemental, they happen, have properties
+	Environment 	- Everything that is there						- Environments are fundamental, exists, have properties
+	Character 		- Everything that are doing						- Characters are fundamental, exist, have properties
+	Item 			- Everything that is had						- Items are fundamental, exist, have properties
+	Action 			- Everything that is done						- Actions are fundamental, they happen, have properties
 
 ## Gameplay layers
 
-	### Fundemental layer
+	### Fundamental layer
 		Fundamental	- A single instance of either the "Environment", a "Character", an "Action" or an "Item"
 		Property 	- A numeric value or a flag that qualifies one aspect of a 'Fundamental'
 		Environment - A specific instantiation of an 'Area' using one selected 'Layout' and 'Tileset' from its possible sets
 		Character 	- An 'Actor' controlled by a 'Player' or an 'AI'
 		Item 		- An 'Object' that can owned by a 'Character'
-		Action 		- A single 'Entity behavior' of an 'Actor'
-		
+		Action 		- A single executable Operation of an 'Actor' trigged by 'Entity Behavior'
 
-	### Base layer
+	### Base layer	
 		Player character	- A 'Character' controlled by a 'player'
 		Self 				- A reference to the acting 'Player Character'
-		NPC 				- A 'Character' that may be controlled by an 'AI' that is friendly towards the 'player'
-		Enemy 				- A 'Character' that may be controlled by an 'AI' that is hostile towards the 'player'
+		NPC 				- A 'Character' that may be controlled by an 'AI' that is friendly towards the 'Player'
+		Enemy 				- A 'Character' that may be controlled by an 'AI' that is hostile towards the 'Player'
+		Item type 			- ... An 'Item(s)' type that determines its 'property(ies)'
 		
-		Power 				- Overall effectiveness of a 'Character'
+		---
 		
-		Modifier	- Additive or multiplicative numberical value that passively changes 'property(ies)'
-		Effect 		- Additive or multiplicative numberical value that actively changes 'property(ies)'
+		Environment property - a set of 'Property(ies)' that affect the entire 'Environment' and all 'Enemy(s)' within it.
+		Character property - a set of 'Property(ies)' of a 'Character'
+		Item property - a set of 'Property(ies)' of a specific 'Item type' of 'Item'
+		Action property - ...
+		
+		---
+		
+		Power 			- Overall effectiveness of a 'Character' measured by its 'property(ies)' and 'action(s)'
+		Power vector	- One aspect of 'Power' that a 'Character' is progressing towards
+		
+		---
+		
+		Modifier		- Additive or multiplicative numberical value that passively changes 'property(ies)'
+		Effect 			- Additive or multiplicative numberical value that actively changes 'property(ies)'
 
+		Passive tree	- ... A set of 'Modifiers' that can be activated/unlocked to permanently enhance a 'Character's' 'Properties' through a progression system
 		Skill 			- Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)'
 		Basic Action	- Any 'Action' that is not a 'Skill'
+		
+		
+		
+		
 
 	### Gameplay base systems layer 
-	
+
+		Property system - What 'Fundamental' has which 'Property(ies)' which property tags
+		
 		#### Environment
 			Dungeon generation system - How 'Environment(s)' are generated
 			
 		#### Character
-			Character class 	- What 'character' classes there are and what defined their 'Power'
+			Character class 	- What 'character' classes/roles there are and their initial 'Power vector'
 			Player progression	- Where and how do 'Player character(s)' get their 'Power'
 			Enemy progression 	- Where and how do 'Enemy(s)' get their 'Power'
 			
@@ -109,17 +128,14 @@
 			
 		#### Action
 			Movement system - How 'Character(s)' move in the 'Environment'
-			Skill system 	- What 'Skill(s)' there are 
+			Skill system 	- What 'Skill(s)' there are and what they do
 			Combat	system 	- Interaction between 'Player character(s)' and 'Enemy(ies)'
 			
 	### Gameplay advanced systems layer
 		Activity 			- 
 		Encounter  			- 
-		
-...
 
-## Gameplay Advanced layer definitions
-...
+
 	
 ## Gameplay definitions (Old)
 
