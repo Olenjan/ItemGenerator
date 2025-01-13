@@ -1,5 +1,9 @@
 # definitions
 
+Defining common gaming terms that are self evident is not required.
+The definitions should follow levels as: High -> Medium -> Detail
+This document just defines the terms used at a High level 
+
 ## Basic definitions
 
 	### User
@@ -69,47 +73,95 @@
 
 	### Fundamental layer
 		Fundamental	- A single instance of either the "Environment", a "Character", an "Action" or an "Item"
-		Property 	- A numeric value or a flag that qualifies one aspect of a 'Fundamental'
+		Property 	- A numeric value or a flag that qualifies one aspect of a certain type of 'Fundamental'
 		Environment - A specific instantiation of an 'Area' using one selected 'Layout' and 'Tileset' from its possible sets
 		Character 	- An 'Actor' controlled by a 'Player' or an 'AI'
 		Item 		- An 'Object' that can owned by a 'Character'
 		Action 		- A single executable Operation of an 'Actor' trigged by 'Entity Behavior'
 
-	### Base layer	
-		Player character	- A 'Character' controlled by a 'player'
-		Self 				- A reference to the acting 'Player Character'
-		NPC 				- A 'Character' that may be controlled by an 'AI' that is friendly towards the 'Player'
-		Enemy 				- A 'Character' that may be controlled by an 'AI' that is hostile towards the 'Player'
-		Item type 			- ... An 'Item(s)' type that determines its 'property(ies)'
+	### Core layer
+	
+		#### Concepts
 		
-		---
+			##### Overall concepts
+				Rarity 		- An abstract classification that determines how uncommon and powerful something is. (Normal, Uncommon, Rare, Unique)
+				Activity 	- A structured interaction with a 'Gameplay system' that a 'Character' can engage with
+				Objective 	- A measurable goal that requires completing one or more 'activity(ies)'
+				Reward 		- A beneficial outcome given to a 'Character' upon completing an 'Objective'
+				Problem 	- A complication or difficulty that reduces play experience and needs to be resolved by the 'player'
+				Combat 		- A state where a 'Character' engage in conflict with other 'Character(s)'
+			
+			##### Environment concepts
+				Container 		- An 'Object' in an 'Instance' that can dispense 'Item(s)'
+			
+			##### Property concepts
+				Property tag	- Label that categorizes a 'property'
+				Property    	- The final calculated value that qualifies something(max_life, fire_resistance, max_fire_resistance, %_chance_X)
+				Resource   		- A current, dynamic value of a 'Property' that can deplete (life, mana)
+				Conditional 	- A boolean check based on one or more 'Property(ies)', 'Resource(s)', 'Transformation' or 'physics'
+				
+				Modifier		- Additive or multiplicative numberical value that changes 'property(ies)'
+				Effect 			- A temporary or semi-permanent 'Modifier'
+				Affix 			- A named set of 'Modifier(s)' on a 'Character', 'Item' or 'Action'
+				
+				Passive tree	- A graph of 'Modifier(s)' that can be activated
+			
+			##### Item concepts
+				Item slot	 	- A position where an 'Item' can placed
+				Socket         	- An 'Item slot' within an 'Item'
+				Inventory 		- a Limited storage space for 'item(s)' currently being carried by a 'Character'
+				Stash 			- A Persistent storage space for 'item(s)' stored by a 'character' or an 'account'
+				Loot 			- 'Item(s)' that are obtained from defeated 'Enemy(s)', from 'Container(s)' or as a 'Reward'
+				Itemization 	- The complete set of meaningful 'Item' choices available to solve 'Problem(s)'
+			
+			##### Character concepts
+				Progression point 	- A value that can be spent to increase a permanently change 'Character(s)' 'Property(ies)'
+				Level				- A rank that determines a 'Character's' overall progression and number of base 'Progression point(s)' they have obtained
+				Experience 			- A value that measures a 'Character's' progress towards gaining a 'Level'.
+				Character class 	- A set of default 'property(ies)' values of a 'Character' and defines interaction with the 'Passive tree'
+				Equipment slot 		- An 'Item slot' that a 'Character' can wield or wear
+			
+	
+		#### Types
 		
-		Environment property - a set of 'Property(ies)' that affect the entire 'Environment' and all 'Enemy(s)' within it.
-		Character property - a set of 'Property(ies)' of a 'Character'
-		Item property - a set of 'Property(ies)' of a specific 'Item type' of 'Item'
-		Action property - ...
-		
-		---
-		
-		Power 			- Overall effectiveness of a 'Character' measured by its 'property(ies)' and 'action(s)'
-		Power vector	- One aspect of 'Power' that a 'Character' is progressing towards
-		
-		---
-		
-		Modifier		- Additive or multiplicative numberical value that passively changes 'property(ies)'
-		Effect 			- Additive or multiplicative numberical value that actively changes 'property(ies)'
+			##### Types
+				Environment type 	-
+				Charater type 		- A category of 'Character(s)' that determines what 'Property(ies)', 'Action(s)', and 'Entity behavior(s)' a 'Character' can have
+				Item type 			- ... An 'Item(s)' type that determines its 'property(ies)'
+				Action type			-
+			
+			##### Environment types
+				...
+			
+			##### Character types
+				Player character	- A 'Character(s)' controlled by a 'player'
+				Self 				- A reference to the acting 'Player Character'
+				NPC 				- A 'Character' that may be controlled by an 'AI' that is friendly towards the 'Player'
+				Enemy 				- A 'Character' that may be controlled by an 'AI' that is hostile towards the 'Player'
 
-		Passive tree	- ... A set of 'Modifiers' that can be activated/unlocked to permanently enhance a 'Character's' 'Properties' through a progression system
-		Skill 			- Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)'
-		Basic Action	- Any 'Action' that is not a 'Skill'
+			##### Item types
+				Equipment 			- An 'Item' that occupies a designated 'Equipment slot' on a 'Character' providing 'Modifier(s)' and enabling specific 'Action(s)'
+				Currency type    	- An 'Item' used as medium of exchange
+			
+			##### Action
+				Skill 			- Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)'
+				Basic Action	- Any 'Action' that is not a 'Skill'
 		
+		#### Properties
+			Environment property - a set of 'Property(ies)' that affects the entire 'Environment' and all 'Enemy(s)' within it.
+			Character property - a set of 'Property(ies)' of a 'Character'
+			Item property - a set of 'Property(ies)' of a specific 'Item type' of 'Item'
+			Equipment property - a set of 'Property(ies)' of a specific 'Item type' of 'Item'
+			Action property - ...
 		
-		
+		#### Metrics	
+			Power 			- Overall effectiveness of a 'Character' measured by its 'property(ies)' and 'action(s)'
+			Power vector	- One aspect of 'Power' that a 'Character' is progressing towards
 		
 
 	### Gameplay base systems layer 
 
-		Property system - What 'Fundamental' has which 'Property(ies)' which property tags
+		Property system - What 'Fundamental' has which 'Property(ies)' and property tags
 		
 		#### Environment
 			Dungeon generation system - How 'Environment(s)' are generated
@@ -136,47 +188,14 @@
 		Encounter  			- 
 
 
-	
-## Gameplay definitions (Old)
+## Gameplay systems (Separate document)
 
-	### Base definitions
-	//
-	Property - A numeric value or flag that is one variable of a state for a 'mechanic' or a set of 'mechanic(s)' across 'game system(s)'
-	Property tag - Label that categorizes the type of a 'property'
-	Modifier - additive or multiplicative value that changes one or more 'property(ies)'
+	### Property system
+	...
 	
-	Character - An 'Actor' controlled by a player or an AI
-	Progression point - A value that can be spent to increase a permanently change 'Character(s)' 'Property(ies)'
 	
-	Item - An 'Object' or an 'Entity' that can be picked up, carried, dropped and possibly used by a 'Character'. Is of certain 'Rarity'
-	Equipment - An 'Inventory item' that can be worn or wielded by a 'Character' to provide benefits
+---
 
-	### Character types(What)
-	Player character - A 'Character' controlled by a 'player'
-	Self - A reference to the acting 'Player Character'
-	NPC - A 'Character' controlled by an AI that is friendly towards the 'player'
-	Enemy - A 'Character' controlled by an AI that is hostile towards the 'player'
-	
-	### Activity
-	Activity - An interaction with one or more 'game system(s)' that a 'Character' can participate in
-	Objective - A designed goal that requires completing one or more 'activity(ies)'
-	Reward - 'Item(s)' or 'Progression point(s)' that are obtained by completing an 'objective'
-	
-	### Property types	
-	Character property - a set of 'Property(ies)' of a 'Character'
-	Equipment property - a unique set of 'Property(ies)' of an 'Equipment' of type
-	Instance property - a set of 'Property(ies)' that affect an entire 'Instance' and all 'Enemy(s)' within it.
-
-		#### Character property
-		Resource - A 'property' of a 'character' spent by doing certain 'action(s)' and regenerated by a 'Character'
-		Regeneration - A 'Property' that passively restored a 'Resource' per second for the 'Character'
-		...
-		
-		#### Equipment property
-		...
-		
-		#### Instance property
-		...
 
 
 
@@ -213,113 +232,6 @@
 		- Encounters
 		- World, areas
 		- Difficulty
-	
-	---
-	
-		#### Character system
-		Character class - Template that defines base values for 'property(ies)' of a 'Character'
-		Character Power - A set of 'Character property(ies)' that represents the overall 'Combat' effectiveness of a 'Character'
-		Passive Tree - A structured collection of permanent increases to 'property(ies)' that can be acquired by spending 'Progression point(s)' to increase 'Character Power'
-		Level - A discrete rank that represents a 'Character's' overall progression and number of base 'Progression point(s)' they have obtained
-		Experience - A value that measures a 'Character's' progress towards gaining a 'Level'. Percentage progress towards obtaining a 'Progression point'
-
-		
-		#### Movement system
-		
-		#### Item system 
-		
-		Problem - A complication or difficulty that reduces play experience and needs to be resolved by the 'player'
-		Itemization - The complete set of meaningful 'Equipment' choices available to a 'Character' to solve 'Problem(s)'
-		Affix - A single 'Modifier' that is part of an item
-		Item Type - A category of 'Item' that determines how it can be used
-		Inventory - a Limited storage space for 'item(s)' currently being carried by a 'Character'
-		Stash - A Persistent storage space for 'item(s)' permanently stored by a 'character' or an 'account'
-		Ground item - an 'Item' that exists as an 'Object' within an 'instance'
-		Inventory item - an 'Item' that exists as an 'Entity' within a 'Character(s)' 'Inventory' or 'Stash' 
-		Equipment Type - A specific category of 'Equipment' that determines how it can be worn or wielded
-		Equipment slot - A designated position where a single piece of 'equipment' of certain 'Equipment Type' can be put on a 'Character'
-		Container - An 'Object' in an 'Instance' that can dispense 'Item(s)'
-		Loot - 'Item(s)' that are obtained from defeated 'Enemy(s)', from 'Container(s)' or as a 'Reward'
-			
-		
-		#### Combat system
-		Combat - A state where 'Character(s)' engage in conflict with each other
-		
-		#### objective system
-		
-		#### Boss/Challange systems
-
-
-
-
-
-
-
-
-
-## Gameplay
-
-
-### Character
-		Character - An 'Actor' controlled by a player or an AI
-		Player character - A 'Character' controlled by a 'player'
-		Self - A reference to the acting 'Player Character'
-		NPC - A 'Character' controlled by an AI that is friendly towards the 'player'
-		Enemy - A 'Character' controlled by an AI that is hostile towards the 'player'
-		Resource - A 'property' of a 'character' spent by doing certain 'action(s)' and regenerated by a 'Character'
-		Regeneration - A 'Property' that passively restored a 'Resource' per second for the 'Character'
-
-
-
-
-### Basics
-Rarity - An abstract classification that determines how uncommon and powerful something is. (Normal, Uncommon, Rare, Unique)
-		Item - An 'Object' or an 'Entity' that can be picked up, carried, dropped and possibly used by a 'Character'. Is of certain 'Rarity'
-
-
-		Property - A numeric value or flag that is one variable of a state for a 'mechanic' or a set of 'mechanic(s)' across 'game system(s)'
-		Modifier - additive or multiplicative value that changes one or more 'property(ies)'
-
-		Progression point - A value that can be spent to increase a permanently change 'Character(s)' 'Property(ies)'
-
-		Combat - A state where 'Character(s)' engage in conflict with each other
-
-
-		Activity - An interaction with one or more 'game system(s)' that a 'Character' can participate in
-		Objective - A designed goal that requires completing one or more 'activity(ies)'
-		Reward - 'Item(s)' or 'Progression point(s)' that are obtained by completing an 'objective'
-
-
-### Item Basics
-		Problem - A complication or difficulty that reduces play experience and needs to be resolved by the 'player'
-		Itemization - The complete set of meaningful 'Equipment' choices available to a 'Character' to solve 'Problem(s)'
-		Affix - A single 'Modifier' that is part of an item
-		Item Type - A category of 'Item' that determines how it can be used
-		Inventory - a Limited storage space for 'item(s)' currently being carried by a 'Character'
-		Stash - A Persistent storage space for 'item(s)' permanently stored by a 'character' or an 'account'
-		Ground item - an 'Item' that exists as an 'Object' within an 'instance'
-		Inventory item - an 'Item' that exists as an 'Entity' within a 'Character(s)' 'Inventory' or 'Stash' 
-		Equipment - An 'Inventory item' that can be worn or wielded by a 'Character' to provide benefits
-		Equipment Type - A specific category of 'Equipment' that determines how it can be worn or wielded
-		Equipment slot - A designated position where a single piece of 'equipment' of certain 'Equipment Type' can be put on a 'Character'
-		Container - An 'Object' in an 'Instance' that can dispense 'Item(s)'
-		Loot - 'Item(s)' that are obtained from defeated 'Enemy(s)', from 'Container(s)' or as a 'Reward'
-	
-
-
-### Gameplay properties 
-		Character property - a set of 'Property(ies)' of a 'Character'
-		Equipment property - a unique set of 'Property(ies)' of an 'Equipment' of type
-		Instance property - a set of 'Property(ies)' that affect an entire 'Instance' and all 'Enemy(s)' within it.
-		Property tag - Label that categorizes the type of a 'property'
-
-
-### Character
-		Character class - Template that defines base values for 'property(ies)' of a 'Character'
-		Character Power - A set of 'Character property(ies)' that represents the overall 'Combat' effectiveness of a 'Character'
-		Passive Tree - A structured collection of permanent increases to 'property(ies)' that can be acquired by spending 'Progression point(s)' to increase 'Character Power'
-		Level - A discrete rank that represents a 'Character's' overall progression and number of base 'Progression point(s)' they have obtained
-		Experience - A value that measures a 'Character's' progress towards gaining a 'Level'. Percentage progress towards obtaining a 'Progression point'
 
 ---
 
@@ -362,20 +274,7 @@ Rarity - An abstract classification that determines how uncommon and powerful so
 	Boss system - ...
 	
 	
----
-
-##### Movement Basics - Movement system
-
-##### Item Basics - Item system
-
-
-##### Progression Basics - Progression system
-	Medium to high reward - Increasing character power is rewarding
-
-	
-	
-	
-	
+---	
 	
 
 ##### Combat Basics (1) - Combat system
