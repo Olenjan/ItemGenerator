@@ -69,6 +69,11 @@ This document just defines the terms used at a High level
 	Item 			- Everything that is had						- Items are fundamental, exist, have properties
 	Action 			- Everything that is done						- Actions are fundamental, they happen, have properties
 
+        // Rename Property:
+        Numerical - Quantitative
+	State/Category - Quantitative
+        
+
 ## Gameplay layers
 
 	### Fundamental layer
