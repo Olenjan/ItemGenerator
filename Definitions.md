@@ -116,7 +116,7 @@ This document just defines the terms used at a High level
 				Environment property 	- A 'Property' that affects an 'Environment'
 				Character property 		- A 'Property' of a 'Character'
 				Item property 			- A 'Property' of an 'Item'
-				Equipment property 		- A 'Property' of a specific type of 'Equipment' 'Item'
+				Equipment property 		- A 'Property' of a specific type of 'Equipment'
 				Action property 		- A 'Property' of an 'Action'
 				
 				Modifier		- Change to a 'Property(ies)'
