@@ -46,12 +46,11 @@ This document just defines the terms used at a High level
 
 	Object 			- A non-abstract 'Entity', with physical form, within a 'playspace' that cannot exit the 'playspace'. Is not a 'surface'
 	Prop 			- An 'object' within 'playspace' that enhances visual detail and ambiance. May have basic scripted 'Entity behavior'
-	Destructible 	- A temporary 'prop' that can be removed from the 'playspace' through interaction	
 	Actor			- An autonomous 'Object' that has controlled 'Entity behavior'
 
 	Tileset - A collection of reusable 'surface(s)' and 'prop(s)' designed to be used together to construct consistent 'playspace'
 	Layout	- A set of instructions defining how a 'tileset' is arranged. Either fixed, randomly or semi-random
-	Area 	- A 'playspace' built from a set of possible 'tileset(s)' and 'layout(s)'
+	Area 	- A 'playspace' constructed from a set of possible 'tileset(s)' and 'layout(s)'
 	Zone 	- A collection of connected 'Area(s)' sharing a progressing theme
 	World 	- A collection of interconnected 'zone(s)'
 
@@ -63,7 +62,7 @@ This document just defines the terms used at a High level
 	Physics			- What Everything is governed by
 
 	//L1 - Fundamental layer
-	Property 		- Everything that describes
+	Property 		- Everything that defines
 	Environment 	- Everything that is there						- Environments are fundamental, exists, have properties
 	Character 		- Everything that are doing						- Characters are fundamental, exist, have properties
 	Item 			- Everything that is had						- Items are fundamental, exist, have properties
@@ -73,21 +72,26 @@ This document just defines the terms used at a High level
 ## Gameplay layers
 
 	### Fundamental layer
-		Fundamental	- A single instance of either the "Environment", a "Character", an "Action" or an "Item"
-		Property 	- A concept that describes one measurable aspect of a certain type of 'Fundamental'
-		Environment - A specific instantiation of an 'Area' using one selected 'Layout' and 'Tileset' from its possible sets
-		Character 	- An 'Actor' controlled by a 'Player' or an 'AI'
-		Item 		- An 'Object' that can owned by a 'Character'
-		Action 		- A single executable Operation of an 'Actor' trigged by 'Entity Behavior'
+	
+		Fundamental	- Either "Environment", "Character", "Action" or an "Item"
+		Property 	- Aspect that defines a 'Fundamental
+		Environment - An instance of 'Area'
+		Character 	- 'Actor' controlled by 'Player' or 'AI'
+		Item 		- 'Object' that can owned by a 'Character'
+		Action 		- Executable operation by an 'Actor'
 
 	### Core layer
 	
+			
+	
 		#### Concepts
+		
 		
 			#### TODO
 			Resource   		- A current, dynamic value of a 'Property' that can deplete (life, mana)			
 			Trigger/Event 	- 
 			Conditional 	- A boolean check based on one or more 'Property(ies)', 'Resource(s)', 'Transformation' or 'physics'
+			
 		
 			##### Overall concepts
 				Rarity 		- An abstract classification that determines how uncommon and powerful something is. (Normal, Uncommon, Rare, Unique)
@@ -96,40 +100,29 @@ This document just defines the terms used at a High level
 				Reward 		- A beneficial outcome given to a 'Character' upon completing an 'Objective'
 				Problem 	- A complication or difficulty that reduces play experience and needs to be resolved by the 'player'
 				Combat 		- A state where a 'Character' engage in conflict with other 'Character(s)'
+				Equipment 	- An 'Item' that can be wielded or worn by a 'Character'
 			
 			##### Environment concepts
-				Container 		- An 'Object' in an 'Instance' that can dispense 'Item(s)'
+				Destructible 	- A temporary 'Prop' that can be removed from the 'playspace' through interaction	
+				Container 		- A 'Prop' in the 'Environment' that can dispense 'Item(s)'
 			
 			##### Property concepts
 				Property tag	- Label that categorizes a 'property'
 				
-				// Attributes are refering to additional information of an object.
-				// Attribute is a quality or object that we attribute to someone or something. For example, the scepter is an attribute of power and statehood.
-				// Properties are describing the characteristics of an object.
-				// Property is a quality that exists without any attribution. For example, clay has adhesive qualities; i.e, a property of clay is its adhesive quality
+				Attribute 			- Basic and inherit 'Property' of a 'Character'
+				Stat 				- A numerical 'Property' of a 'Character' that measures its performance
+				Additional property - A 'Property' that is not an 'Attribute' or 'Stat' on a 'Character'
 				
-				// Property 	- A measurable, inherent characteristic of an object or entity that exists without external influence.
-				// Attribute 	- A fundamental, core characteristic of a character that serves as a foundation for calculating other values.
-				// Stat 		- A derived, dynamic numerical value representing current performance metrics, calculated from attributes and properties.
-				/// But Attack speed IS property AND attribute ...
-				// https://softwareengineering.stackexchange.com/questions/112415/is-there-a-difference-between-property-and-attribute
-				// Property implies something possessed by something else.
-					Character posesses a __
-				// Attribute suggests something that is an inherent characteristic.
-				Attack speed is a property of a Weapon
-				attack speed is an attribute of a character
-					
+				Environment property 	- A 'Property' that affects an 'Environment'
+				Character property 		- A 'Property' of a 'Character'
+				Item property 			- A 'Property' of an 'Item'
+				Equipment property 		- A 'Property' of a specific type of 'Equipment' 'Item'
+				Action property 		- A 'Property' of an 'Action'
 				
-				
-				Property 		- A concept that describes a measurable aspect of something(armor_bonus, weapon_attacks_per_second, max_life, fire_resistance, max_fire_resistance, %_chance_to_X) - "Mass is a property of matter."
-				Attribute 		- ??? A 'Property' with a specific value for a given 'Fundemental'(str,dex,int, attack speed, ) - "Weight is an attribute of an object."
-				Stat			- ??? Referring to numerical, often dynamic, characteristics that can be measured and quantified. (Attacks per second, chance to hit) - "The vehicle's stats include its weight and top speed"
-				
-				Modifier		- Additive or multiplicative numberical value that changes 'property(ies)'
+				Modifier		- Change to a 'Property(ies)'
 				Effect 			- A temporary or semi-permanent 'Modifier'
-				Affix 			- A named set of 'Modifier(s)' on a 'Character', 'Item' or 'Action'
-				
-				Passive tree	- A graph of 'Modifier(s)' that can be activated
+				Affix 			- A named set of 'Modifier(s)' for a 'Fundamental'
+				Passive tree	- A graph of 'Modifier(s)' that can be activated for a 'Fundamental'
 			
 			##### Item concepts
 				Item slot	 	- A position where an 'Item' can placed
@@ -165,7 +158,7 @@ This document just defines the terms used at a High level
 				Enemy 				- A 'Character' that may be controlled by an 'AI' that is hostile towards the 'Player'
 
 			##### Item types
-				Equipment 			- An 'Item' that occupies a designated 'Equipment slot' on a 'Character' providing 'Modifier(s)' and enabling specific 'Action(s)'
+				Equipment type		- An 'Item' that occupies a designated 'Equipment slot' on a 'Character' providing 'Modifier(s)' and enabling specific 'Action(s)'
 				Currency type    	- An 'Item' used as medium of exchange
 			
 			##### Action
@@ -173,11 +166,7 @@ This document just defines the terms used at a High level
 				Basic Action	- Any 'Action' that is not a 'Skill'
 		
 		#### Properties
-			Environment property - a set of 'Property(ies)' that affects the entire 'Environment' and all 'Enemy(s)' within it.
-			Character property - a set of 'Property(ies)' of a 'Character'
-			Item property - a set of 'Property(ies)' of a specific 'Item type' of 'Item'
-			Equipment property - a set of 'Property(ies)' of a specific 'Item type' of 'Item'
-			Action property - ...
+			
 		
 		#### Metrics	
 			Power 			- Overall effectiveness of a 'Character' measured by its 'property(ies)' and 'action(s)'
