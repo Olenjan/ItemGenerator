@@ -63,22 +63,18 @@ This document just defines the terms used at a High level
 	Physics			- What Everything is governed by
 
 	//L1 - Fundamental layer
-	Property 		- Everything that qualifies
+	Property 		- Everything that describes
 	Environment 	- Everything that is there						- Environments are fundamental, exists, have properties
 	Character 		- Everything that are doing						- Characters are fundamental, exist, have properties
 	Item 			- Everything that is had						- Items are fundamental, exist, have properties
 	Action 			- Everything that is done						- Actions are fundamental, they happen, have properties
-
-        // Rename Property:
-        Numerical - Quantitative
-	State/Category - Quantitative
         
 
 ## Gameplay layers
 
 	### Fundamental layer
 		Fundamental	- A single instance of either the "Environment", a "Character", an "Action" or an "Item"
-		Property 	- A numeric value or a flag that qualifies one aspect of a certain type of 'Fundamental'
+		Property 	- A concept that describes one measurable aspect of a certain type of 'Fundamental'
 		Environment - A specific instantiation of an 'Area' using one selected 'Layout' and 'Tileset' from its possible sets
 		Character 	- An 'Actor' controlled by a 'Player' or an 'AI'
 		Item 		- An 'Object' that can owned by a 'Character'
@@ -87,6 +83,11 @@ This document just defines the terms used at a High level
 	### Core layer
 	
 		#### Concepts
+		
+			#### TODO
+			Resource   		- A current, dynamic value of a 'Property' that can deplete (life, mana)			
+			Trigger/Event 	- 
+			Conditional 	- A boolean check based on one or more 'Property(ies)', 'Resource(s)', 'Transformation' or 'physics'
 		
 			##### Overall concepts
 				Rarity 		- An abstract classification that determines how uncommon and powerful something is. (Normal, Uncommon, Rare, Unique)
@@ -101,9 +102,28 @@ This document just defines the terms used at a High level
 			
 			##### Property concepts
 				Property tag	- Label that categorizes a 'property'
-				Property    	- The final calculated value that qualifies something(max_life, fire_resistance, max_fire_resistance, %_chance_X)
-				Resource   		- A current, dynamic value of a 'Property' that can deplete (life, mana)
-				Conditional 	- A boolean check based on one or more 'Property(ies)', 'Resource(s)', 'Transformation' or 'physics'
+				
+				// Attributes are refering to additional information of an object.
+				// Attribute is a quality or object that we attribute to someone or something. For example, the scepter is an attribute of power and statehood.
+				// Properties are describing the characteristics of an object.
+				// Property is a quality that exists without any attribution. For example, clay has adhesive qualities; i.e, a property of clay is its adhesive quality
+				
+				// Property 	- A measurable, inherent characteristic of an object or entity that exists without external influence.
+				// Attribute 	- A fundamental, core characteristic of a character that serves as a foundation for calculating other values.
+				// Stat 		- A derived, dynamic numerical value representing current performance metrics, calculated from attributes and properties.
+				/// But Attack speed IS property AND attribute ...
+				// https://softwareengineering.stackexchange.com/questions/112415/is-there-a-difference-between-property-and-attribute
+				// Property implies something possessed by something else.
+					Character posesses a __
+				// Attribute suggests something that is an inherent characteristic.
+				Attack speed is a property of a Weapon
+				attack speed is an attribute of a character
+					
+				
+				
+				Property 		- A concept that describes a measurable aspect of something(armor_bonus, weapon_attacks_per_second, max_life, fire_resistance, max_fire_resistance, %_chance_to_X) - "Mass is a property of matter."
+				Attribute 		- ??? A 'Property' with a specific value for a given 'Fundemental'(str,dex,int, attack speed, ) - "Weight is an attribute of an object."
+				Stat			- ??? Referring to numerical, often dynamic, characteristics that can be measured and quantified. (Attacks per second, chance to hit) - "The vehicle's stats include its weight and top speed"
 				
 				Modifier		- Additive or multiplicative numberical value that changes 'property(ies)'
 				Effect 			- A temporary or semi-permanent 'Modifier'
