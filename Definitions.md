@@ -62,19 +62,26 @@ This document just defines the terms used at a High level
 	Physics			- What Everything is governed by
 
 	//L1 - Fundamental layer
-	Property 		- Everything that defines
-	Environment 	- Everything that is there						- Environments are fundamental, exists, have properties
-	Character 		- Everything that are doing						- Characters are fundamental, exist, have properties
-	Item 			- Everything that is had						- Items are fundamental, exist, have properties
-	Action 			- Everything that is done						- Actions are fundamental, they happen, have properties
+	Stat			- Everything that is measured 					- Stats are measurements of and between 'Fundamental(s)'
+	Environment 	- Everything that is there						- Environments are fundamental, exists, have stats
+	Character 		- Everything that are doing						- Characters are fundamental, exist, have stats
+	Item 			- Everything that is had						- Items are fundamental, exist, have stats
+	Action 			- Everything that is done						- Actions are fundamental, they happen, have stats
         
+	What a 'stat' actually is ?
+	
+	Environment can exist without any stats
+	Character can exist without any stats
+	Item can exist without any stats
+	Action can exist without any stats
+		
 
 ## Gameplay layers
 
 	### Fundamental layer
 	
 		Fundamental	- Either "Environment", "Character", "Action" or an "Item"
-		Property 	- Aspect that defines a 'Fundamental
+		Stat		- Aspect of a 'Fundamental'
 		Environment - An instance of 'Area'
 		Character 	- 'Actor' controlled by 'Player' or 'AI'
 		Item 		- 'Object' that can owned by a 'Character'
@@ -86,57 +93,60 @@ This document just defines the terms used at a High level
 	
 		#### Concepts
 		
-		
 			#### TODO
-			Resource   		- A current, dynamic value of a 'Property' that can deplete (life, mana)			
-			Trigger/Event 	- 
-			Conditional 	- A boolean check based on one or more 'Property(ies)', 'Resource(s)', 'Transformation' or 'physics'
+			Resource   		- Current value of a 'Stat' that can be depleted for some purpose
+			
 			
 		
 			##### Overall concepts
+				Tag			- Label that categorizes a 'Stat'
 				Rarity 		- An abstract classification that determines how uncommon and powerful something is. (Normal, Uncommon, Rare, Unique)
+				
+				Equipment 	- An 'Item' that can be wielded or worn by a 'Character'
+				
+				
 				Activity 	- A structured interaction with a 'Gameplay system' that a 'Character' can engage with
 				Objective 	- A measurable goal that requires completing one or more 'activity(ies)'
 				Reward 		- A beneficial outcome given to a 'Character' upon completing an 'Objective'
+				
 				Problem 	- A complication or difficulty that reduces play experience and needs to be resolved by the 'player'
 				Combat 		- A state where a 'Character' engage in conflict with other 'Character(s)'
-				Equipment 	- An 'Item' that can be wielded or worn by a 'Character'
+				
 			
 			##### Environment concepts
 				Destructible 	- A temporary 'Prop' that can be removed from the 'playspace' through interaction	
 				Container 		- A 'Prop' in the 'Environment' that can dispense 'Item(s)'
 			
-			##### Property concepts
-				Property tag	- Label that categorizes a 'property'
+			##### Stat concepts
+				Attribute 	- Basic and inherit 'Stat' of a 'Character'
+				Conditional	- 'Stat' that performs a specific 'Action' or a chance in 'Stats' when its condition is met
+				Proc 		- 'Conditional' that uses chance/probability as its condition
+				Trigger		- percentage chance or a 'Conditional' to cause an automatic 'Action'
 				
-				Attribute 			- Basic and inherit 'Property' of a 'Character'
-				Stat 				- A numerical 'Property' of a 'Character' that measures its performance
-				Additional property - A 'Property' that is not an 'Attribute' or 'Stat' on a 'Character'
+				Environment Stat	- A 'Stat' that affects an 'Environment' and most native 'Character(s)' within
+				Character Stat 		- A 'Stat' of a 'Character'
+				Item Stat 			- A 'Stat' of an 'Item'
+				Equipment Stat 		- A 'Stat' of a specific type of 'Equipment'
+				Action Stat 		- A 'Stat' of an 'Action'
 				
-				Environment property 	- A 'Property' that affects an 'Environment'
-				Character property 		- A 'Property' of a 'Character'
-				Item property 			- A 'Property' of an 'Item'
-				Equipment property 		- A 'Property' of a specific type of 'Equipment'
-				Action property 		- A 'Property' of an 'Action'
-				
-				Modifier		- Change to a 'Property(ies)'
+				Modifier		- Change to one specific 'Stat'
 				Effect 			- A temporary or semi-permanent 'Modifier'
 				Affix 			- A named set of 'Modifier(s)' for a 'Fundamental'
 				Passive tree	- A graph of 'Modifier(s)' that can be activated for a 'Fundamental'
 			
 			##### Item concepts
-				Item slot	 	- A position where an 'Item' can placed
-				Socket         	- An 'Item slot' within an 'Item'
-				Inventory 		- a Limited storage space for 'item(s)' currently being carried by a 'Character'
-				Stash 			- A Persistent storage space for 'item(s)' stored by a 'character' or an 'account'
-				Loot 			- 'Item(s)' that are obtained from defeated 'Enemy(s)', from 'Container(s)' or as a 'Reward'
-				Itemization 	- The complete set of meaningful 'Item' choices available to solve 'Problem(s)'
+				Item slot	- A position where an 'Item' can placed
+				Socket      - An 'Item slot' within an 'Item'
+				Inventory 	- a Limited storage space for 'item(s)' currently being carried by a 'Character'
+				Stash 		- A Persistent storage space for 'item(s)' stored by a 'character' or an 'account'
+				Loot 		- 'Item(s)' that are obtained from defeated 'Enemy(s)', from 'Container(s)' or as a 'Reward'
+				Itemization	- The complete set of meaningful 'Equipment' choices available to solve 'Problem(s)'
 			
 			##### Character concepts
-				Progression point 	- A value that can be spent to increase a permanently change 'Character(s)' 'Property(ies)'
+				Progression point 	- A value that can be spent to permanently change 'Character(s)' 'Stat(s)'
 				Level				- A rank that determines a 'Character's' overall progression and number of base 'Progression point(s)' they have obtained
 				Experience 			- A value that measures a 'Character's' progress towards gaining a 'Level'.
-				Character class 	- A set of default 'property(ies)' values of a 'Character' and defines interaction with the 'Passive tree'
+				Character class 	- A set of default 'Stat(s)' values of a 'Character' and defines interaction with the 'Passive tree'
 				Equipment slot 		- An 'Item slot' that a 'Character' can wield or wear
 			
 	
@@ -144,8 +154,8 @@ This document just defines the terms used at a High level
 		
 			##### Types
 				Environment type 	-
-				Charater type 		- A category of 'Character(s)' that determines what 'Property(ies)', 'Action(s)', and 'Entity behavior(s)' a 'Character' can have
-				Item type 			- ... An 'Item(s)' type that determines its 'property(ies)'
+				Charater type 		- A category of 'Character(s)' that determines what 'Stat(s)', 'Action(s)', and 'Entity behavior(s)' a 'Character' can have
+				Item type 			- ... An 'Item(s)' type that determines its 'Stat(s)'
 				Action type			-
 			
 			##### Environment types
@@ -162,20 +172,20 @@ This document just defines the terms used at a High level
 				Currency type    	- An 'Item' used as medium of exchange
 			
 			##### Action
-				Skill 			- Every 'Character' related 'Action' that changes a 'Character(s)' 'property(ies)'
+				Skill 			- Every 'Character' related 'Action' that changes 'Character(s)' 'Resource(s)' or 'Stat(s)'
 				Basic Action	- Any 'Action' that is not a 'Skill'
 		
 		#### Properties
 			
 		
 		#### Metrics	
-			Power 			- Overall effectiveness of a 'Character' measured by its 'property(ies)' and 'action(s)'
+			Power 			- Overall effectiveness of a 'Character' measured by its 'Stat(s)' and 'action(s)'
 			Power vector	- One aspect of 'Power' that a 'Character' is progressing towards
 		
 
 	### Gameplay base systems layer 
 
-		Property system - What 'Fundamental' has which 'Property(ies)' and property tags
+		Stat system - What 'Fundamental' has which 'Stat(s)' and 'Tag(s)'
 		
 		#### Environment
 			Dungeon generation system - How 'Environment(s)' are generated
@@ -204,7 +214,7 @@ This document just defines the terms used at a High level
 
 ## Gameplay systems (Separate document)
 
-	### Property system
+	### Stat system
 	...
 	
 	
