@@ -92,9 +92,6 @@ This document just defines the terms used at a High level
 			
 	
 		#### Concepts
-		
-			#### TODO
-			Resource   		- Current value of a 'Stat' that can be depleted for some purpose
 			
 			
 		
@@ -103,7 +100,6 @@ This document just defines the terms used at a High level
 				Rarity 		- An abstract classification that determines how uncommon and powerful something is. (Normal, Uncommon, Rare, Unique)
 				
 				Equipment 	- An 'Item' that can be wielded or worn by a 'Character'
-				
 				
 				Activity 	- A structured interaction with a 'Gameplay system' that a 'Character' can engage with
 				Objective 	- A measurable goal that requires completing one or more 'activity(ies)'
@@ -119,6 +115,7 @@ This document just defines the terms used at a High level
 			
 			##### Stat concepts
 				Attribute 	- Basic and inherit 'Stat' of a 'Character'
+				Resource   	- Current value of a 'Stat' that can deplete
 				Conditional	- 'Stat' that performs a specific 'Action' or a chance in 'Stats' when its condition is met
 				Proc 		- 'Conditional' that uses chance/probability as its condition
 				Trigger		- percentage chance or a 'Conditional' to cause an automatic 'Action'
